@@ -1,0 +1,142 @@
+﻿@model SINU.Models.vPersona_Antropometria
+@*@{
+        ViewBag.Title = "Antropo";
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }*@
+
+<h2>Medidas y Tallas</h2>
+
+
+@using (Ajax.BeginForm("Antropometria", "Postulante", null,
+new AjaxOptions
+{
+    HttpMethod = "POST",
+    OnSuccess = "Exito(data,status,xhr)",
+    OnFailure = "Falla",
+//LoadingElementId = "carga",
+//LoadingElementDuration = 1000,
+//UpdateTargetId = "resultTarget"
+},
+new { id = "BeginFormAntropometria" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal" id="antropo">
+        <hr />
+        <div class="row">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            @Html.HiddenFor(model => model.IdPersona,new { @id="AntroIDper"})
+            <div class="col-md-6">
+                <img src="~/Imagenes/hombremedidas.jpg" class="img-fluid" />
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Genero, htmlAttributes: new { @class = "control-label col-md-6" })
+                    <div class="col-md-12">
+                        @Html.TextBoxFor(model => model.Genero,new { @class = "form-control", @id = "Sexo" , @readonly = "readonly" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Altura, htmlAttributes: new { @class = "control-label col-md-6" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.Altura,  new { @class = "form-control", @id = "altura" })
+                        @Html.ValidationMessageFor(model => model.Altura, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Peso, htmlAttributes: new { @class = "control-label col-md-12" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.Peso, new { @class = "form-control", @id = "peso" })
+                        @Html.ValidationMessageFor(model => model.Peso, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.IMC, htmlAttributes: new { @class = "control-label col-md-12" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.IMC,  new { @class = "form-control", @id = "imc", @readonly = "readonly" })
+                        @Html.ValidationMessageFor(model => model.IMC, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                
+
+            </div>
+            <div class="col-md-6">
+
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.PerimCabeza, htmlAttributes: new { @class = "control-label col-md-12" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.PerimCabeza, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.PerimCabeza, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.PerimTorax, htmlAttributes: new { @class = "control-label col-md-12" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.PerimTorax, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.PerimTorax, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.PerimCintura, htmlAttributes: new { @class = "control-label col-md-12" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.PerimCintura, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.PerimCintura, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.LargoPantalon, htmlAttributes: new { @class = "control-label col-md-12" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.LargoPantalon, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.LargoPantalon, "", new { @class = "text-danger" })
+                    </div>
+                </div> 
+                <div class="form-group">
+                    @Html.LabelFor(model => model.LargoEntrep, htmlAttributes: new { @class = "control-label col-md-12" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.LargoEntrep, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.LargoEntrep, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.PerimCaderas, htmlAttributes: new { @class = "control-label col-md-12" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.PerimCaderas, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.PerimCaderas, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group" id="mujer">
+                    @Html.LabelFor(model => model.LargoFalda, htmlAttributes: new { @class = "control-label col-md-12" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.LargoFalda, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.LargoFalda, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Cuello, htmlAttributes: new { @class = "control-label col-md-12" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.Cuello, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Cuello, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Calzado, htmlAttributes: new { @class = "control-label col-md-12" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.Calzado, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Calzado, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+        <div class="form-group pl-3 BTAcciones">
+
+            <input type="submit" value="Guardar Datos" class="btn btn-success" />
+
+        </div>
+
+    </div>
+}

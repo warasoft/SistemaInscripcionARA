@@ -1,0 +1,127 @@
+﻿@model IEnumerable<SINU.Models.PeriodosInscripciones>
+
+@{
+    ViewBag.Title = "Período de Inscripción";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@*@section MenuPerfil{
+
+    @Html.Partial("_MenuPerfilAdmin")
+}*@
+
+
+<h2>Periodos de Incripcion</h2>
+
+
+<table class="table table-filters table-bordered table-light" id="le-filters" style="width:100%">
+    <thead>
+        <tr>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.IdPeriodoInscripcion)
+            </th>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.FechaInicio)
+            </th>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.FechaFinal)
+            </th>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.Institucion.NombreInst)
+            </th>
+            <th class="text-center">
+                Opciones
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdPeriodoInscripcion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaInicio)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaFinal)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Institucion.NombreInst)
+            </td>
+            <td class="justify-content-center align-items-center d-md-flex">
+                @Html.ActionLink("  ", "Edit", new { id = item.IdPeriodoInscripcion }, htmlAttributes: new { @class = "fas fa-edit" })&ensp;|&ensp;
+                @Html.ActionLink("  ", "Details", new { id = item.IdPeriodoInscripcion }, htmlAttributes: new { @class = "fas fa-list" })&ensp;|&ensp;
+                @Html.ActionLink("  ", "Delete", new { id = item.IdPeriodoInscripcion }, htmlAttributes: new { @class = "fas fa-trash-alt" })
+            </td>
+        </tr>
+        }
+
+    </tbody>
+
+</table>
+<br />
+<p>
+    @Html.ActionLink(" Nuevo Periodo", "Create", null, new { @class = "btn btn-success btn-lg fas fa-plus font-jumb", @style = "height:auto" })
+</p>
+
+<!-- ***********************************************************************-->
+<!-- COPIAR TODO ESTE SCRIPT DE DATATABLE PARA TODAS LAS TABLAS DEL SISTEMA-->
+<!-- ***********************************************************************-->
+<!--Para establecer Formato de Tabla-->
+<!-- Establecer la tabla  <table class="table table-filters" id="le-filters">-->
+<!-- Agregar en las columnas que no deseo ordenar  <th class="no-sort"> -->
+<!-- Agregar en las columnas que no deseo ordenar ni buscar  <th class="ni-o-ni-bu"> -->
+<!-- Rodear la tr de las th con <thead> </thead>-->
+<!-- Rodear el contenido de la tabla con <tbody>-->
+@section Scripts {
+    <script type="text/javascript">
+        //scrip que permite buscar por cualquier campo en la tabla para su uso requiere que tabla tenga la propiedad id=myTable
+        $(document).ready(function () {
+            $(".table-filters").DataTable({
+                responsive: true,
+                "language":
+                {
+                    "sProcessing": "Procesando...",
+                    "sLengthMenu": "Mostrar _MENU_ registros",
+                    "sZeroRecords": "No se encontraron resultados",
+                    "sEmptyTable": "Ningún dato disponible en esta tabla",
+                    "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                    "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                    "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                    "sInfoPostFix": "",
+                    "sSearch": "Buscar:",
+                    "sUrl": "",
+                    "sInfoThousands": ",",
+                    "sLoadingRecords": "Cargando...",
+                    "oPaginate": {
+                        "sFirst": "Primero",
+                        "sLast": "Último",
+                        "sNext": "Siguiente",
+                        "sPrevious": "Anterior"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                    }
+                },
+
+                "columnDefs": [{
+                    "targets": 'no-sort',
+                    "orderable": false
+                },
+                {
+                    "targets": 'ni-o-ni-bu',
+                    "searchable": false,
+                    "orderable": false
+
+                }]
+
+
+            });
+
+        });
+    </script>
+
+    }

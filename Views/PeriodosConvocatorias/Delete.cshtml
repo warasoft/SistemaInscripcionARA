@@ -1,0 +1,91 @@
+﻿@model SINU.Models.vConvocatoriaDetalles
+
+@{
+    ViewBag.Title = "Eliminar Convocatoria";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Eliminar</h2>
+
+<div>
+    <h4>Convocatoria</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.Label("Fecha de Inicio de Periodo de Inscripción")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FechaInicio)
+        </dd>
+
+        <dt>
+            @Html.Label("Fecha de Fin de Periodo de Inscripción")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FechaFinal)
+        </dd>
+
+        @*<dt>
+                @Html.DisplayNameFor(model => model.IdInstitucion)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.IdInstitucion)
+            </dd>*@
+
+        <dt>
+            @Html.Label("Periodo de Inscripción")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IdPeriodoInscripcion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IdModalidad)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Modalidad)
+        </dd>
+
+        <dt>
+            @Html.Label("Descripcion del Grupo Carrera/Oficio")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IdGrupoCarrOficio)
+        </dd>
+
+        @*<dt>
+                @Html.DisplayNameFor(model => model.Fecha_Inicio_Proceso)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Fecha_Inicio_Proceso)
+            </dd>*@
+
+        <dt>
+            @Html.Label("Fecha de Fin de Proceso")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Fecha_Fin_Proceso)
+        </dd>
+
+        @*<dt>
+                @Html.DisplayNameFor(model => model.ff)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.ff)
+            </dd>*@
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Eliminar", "DeleteConfirmed", new { id = Model.IdConvocatoria },new { @class="btn btn-danger"}) |
+    @Html.ActionLink("Volver al Listado", "Index")
+</p>

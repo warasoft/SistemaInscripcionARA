@@ -1,0 +1,35 @@
+﻿@model SINU.Models.CarreraOficio
+
+@{
+    ViewBag.Title = "Carrera/Oficio";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Detalle</h2>
+
+<div>
+    @*<h4>CarreraOficio</h4>*@
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CarreraUoficio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CarreraUoficio)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Personal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Personal)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editar", "Edit", new { id = Model.IdCarreraOficio }) |
+    @Html.ActionLink("Volver", "Index")
+</p>

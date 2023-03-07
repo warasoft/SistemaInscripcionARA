@@ -1,0 +1,141 @@
+﻿@model IEnumerable<SINU.Models.sp_ConsultaInscriptosModalidadGenero_Result>
+@using SINU.Models
+@{
+    SINUEntities db = new SINUEntities();
+    ViewBag.Title = "Totales Agrupados Por Modalidad y Genero";
+    var TotalINSC = Model.Count()==0?0:((List<SINU.Models.sp_ConsultaInscriptosModalidadGenero_Result>)Model)[0].Total;
+    //ViewBag.ModalidadGenero = 0;
+
+}
+
+<h2>
+    @ViewBag.Title
+</h2>
+@Html.ActionLink("Ver Genero sin separar por MODALIDAD", "InscriptosPorModalidad", new { ModalidadElegida = "TODOS" }, new { @class = "btn btn-sucess w-80  btn-success" })
+
+
+<p>
+    <div class="alert alert-success text-right text-secondary" role="alert" style="background-color: #346691!important; color:white !important;"> Total Inscriptos: @TotalINSC</div>
+
+</p>
+
+<table class="table table-filters table-bordered table-light table-hover  " id="le-filters" style="width:100%">
+    <thead class="thead-dark">
+        <tr>
+            <th>
+                @*@Html.DisplayNameFor(model => model.Modalidad_Siglas)*@
+                <label>Modalidad</label>
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Genero)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cantidad)
+            </th>
+            @*<th>
+                @Html.DisplayNameFor(model => model.SubTotal)
+            </th>*@
+            <th class="noPrint">
+                Ver Datos
+            </th>
+            @*<th>
+                    @Html.DisplayNameFor(model => model.Total)
+                </th>*@
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Modalidad_Siglas)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Genero)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cantidad)
+                </td>
+                @*<td>
+                    @Html.DisplayFor(modelItem => item.SubTotal)
+                </td>*@
+                @*<td>
+                    @{ViewBag.ModalidadGenero = db.vConsultaInscripciones.Where(m => m.Modalidad_Siglas == item.Modalidad_Siglas).ToList().Count;}
+                    @ViewBag.ModalidadGenero*@
+
+                @*<td>
+                      @Html.DisplayFor(modelItem => item.Total)
+                    </td>*@
+                <td>
+                    @*@Html.ActionLink("Edit", "Edit", new { id=item.ID }) |*@
+                    @*@Html.ActionLink("Detalle", "Details", new { id = item.ID }) |*@
+                    @*Nombre,Action, Controlador*@
+                    @*@Html.ActionLink("Delete", "Delete", new { id=item.ID })*@
+                    @*No se puede tener dos ActionLink con el mismo nombre*@
+                    @Html.ActionLink(" ", "InscriptosPorModalidad", new { ModalidadElegida = item.Modalidad_Siglas, Genero = item.Genero }, new { @class = "fas fa-bars", @style = "color:#343a40" })
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>
+
+
+<!-- ***********************************************************************-->
+<!-- COPIAR TODO ESTE SCRIPT DE DATATABLE PARA TODAS LAS TABLAS DEL SISTEMA-->
+<!-- ***********************************************************************-->
+<!--Para establecer Formato de Tabla-->
+<!-- Establecer la tabla  <table class="table table-filters" id="le-filters">-->
+<!-- Agregar en las columnas que no deseo ordenar  <th class="no-sort"> -->
+<!-- Agregar en las columnas que no deseo ordenar ni buscar  <th class="ni-o-ni-bu"> -->
+<!-- Rodear la tr de las th con <thead> </thead>-->
+<!-- Rodear el contenido de la tabla con <tbody>-->
+@section Scripts {
+    <script type="text/javascript">
+        //scrip que permite buscar por cualquier campo en la tabla para su uso requiere que tabla tenga la propiedad id=myTable
+        $(document).ready(function () {
+            $(".table-filters").DataTable({
+                responsive: true,
+                "language":
+                {
+                    "sProcessing": "Procesando...",
+                    "sLengthMenu": "Mostrar _MENU_ registros",
+                    "sZeroRecords": "No se encontraron resultados",
+                    "sEmptyTable": "Ningún dato disponible en esta tabla",
+                    "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                    "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                    "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                    "sInfoPostFix": "",
+                    "sSearch": "Buscar:",
+                    "sUrl": "",
+                    "sInfoThousands": ",",
+                    "sLoadingRecords": "Cargando...",
+                    "oPaginate": {
+                        "sFirst": "Primero",
+                        "sLast": "Último",
+                        "sNext": "Siguiente",
+                        "sPrevious": "Anterior"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                    }
+                },
+
+                "columnDefs": [{
+                    "targets": 'no-sort',
+                    "orderable": false
+                },
+                {
+                    "targets": 'ni-o-ni-bu',
+                    "searchable": false,
+                    "orderable": false
+
+                }]
+                "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Todos"]]
+
+            });
+
+        });
+    </script>
+}

@@ -1,0 +1,40 @@
+﻿@model IEnumerable<SINU.Models.Delegacion_EstablecExamen>
+
+@{
+    ViewBag.Title = "Extablecimientos de Examen y Oficinas/Delegaciónes";
+    //Layout = "~/Views/Shared/_MenuPerfilAdmin.cshtml";
+}
+
+<h2>Extablecimientos de Examen y Oficinas/Delegaciónes</h2>
+
+<p>
+    @Html.ActionLink("Crear Nuevo", "Create",null, new { @class="btn btn-success" })
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.Label("Establecimiento de Examen")
+        </th>
+        <th>
+            @Html.Label("Oficina y Delegación")
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.EstablecimientoRindeExamen.Nombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OficinasYDelegaciones.Nombre)
+        </td>
+        <td>
+            @Html.ActionLink(" Editar", "Edit", new { id = item.idDelegacion_EstablecExamen }, htmlAttributes: new { @class = "fas fa-edit" })&ensp;|&ensp;
+            @Html.ActionLink(" Detalle", "Details", new { id = item.idDelegacion_EstablecExamen }, htmlAttributes: new { @class = "fas fa-list" })&ensp;|&ensp;
+            @Html.ActionLink(" Eliminar", "Delete", new { id = item.idDelegacion_EstablecExamen }, htmlAttributes: new { @class = "fas fa-trash-alt" })
+        </td>
+    </tr>
+}
+
+</table>

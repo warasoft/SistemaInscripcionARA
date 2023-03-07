@@ -1,0 +1,100 @@
+﻿@model IEnumerable<SINU.Models.sp_vPersona_Familiar_Result>
+    <h2>Familia</h2>
+    <p style="font-weight:500" class="text-justify">
+        Debe ingresar los datos de todos los hermanos, los
+        hijos, los padres y los convivientes. En el caso de los datos de Padres, Hermanos e Hijos, deben estar aun cuando
+        no convivan con el postulante y deben ir primero, antes del resto de los convivientes.
+    </p>
+
+<table id="TablaFamilia" @*data-CUD="EstudiosCUD" data-URL="Estudios" data-ELI="EliminaEST"*@ class="table table-striped table-bordered dt-responsive nowrap" width="100%">
+    <thead>
+        <tr>
+            <th hidden>
+                @Html.DisplayNameFor(model => model.IdPersonaFamiliar)
+            </th>
+            <th hidden>
+                @Html.DisplayNameFor(model => model.IdFamiliar)
+            </th>
+            <th hidden>
+                @Html.DisplayNameFor(model => model.IdPersonaPostulante)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Apellido)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Nombres)
+            </th>
+            <th class="oculto">
+                @Html.DisplayNameFor(model => model.Relacion)
+            </th>
+            <th>
+              Opciones
+            </th>
+            @*<th class="oculto">
+                @Html.DisplayNameFor(model => model.Vive)
+            </th>*@
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            bool ninguna = false;
+            if (Model.Count() > 0)
+            {
+                ninguna = Model.First().Apellido == "SIN RELACION FAMILIAR";
+            }
+        }
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td hidden>
+                    @Html.DisplayFor(modelItem => item.IdPersonaFamiliar)
+                </td>
+                <td hidden>
+                    @Html.DisplayFor(modelItem => item.IdFamiliar)
+                </td>
+                <td hidden>
+                    @Html.DisplayFor(modelItem => item.IdPersonaPostulante)
+                </td>
+
+                <td class="text-center" colspan="@(ninguna?"100%":"1")">
+                    @Html.DisplayFor(modelItem => item.Apellido)
+                </td>
+                <td class="oculto  @(ninguna?"d-none":"")">
+                    @Html.DisplayFor(modelItem => item.Nombres)
+                </td>
+                <td class="oculto  @(ninguna?"d-none":"")">
+                    @Html.DisplayFor(modelItem => item.Relacion)
+                </td>
+                <td class="row justify-content-center align-items-center  @(ninguna?"d-none":"")">
+                    <div class="BTMuestraTable">
+                        @Html.ActionLink(" ", "FamiliaCUD", new { ID_persona = item.IdPersonaPostulante, idPersonaFamilia = item.IdPersonaFamiliar }, new { @class = "Edita NoModal btn btn-success fas fa-edit", @tooltip = "Editar" })
+                    </div>
+                    <div class="BTAcciones d-inline">
+                        &ensp;|&ensp;
+                        @Ajax.ActionLink(" ", "EliminaFAMI", new { ID_per = item.IdPersonaFamiliar, ID_fami = item.IdFamiliar }, new AjaxOptions
+                          {
+                            HttpMethod = "POST",
+                            OnSuccess = "Exito(data,status,xhr)",
+                            OnFailure = "Falla",
+                          }, new { @id = "EliminaFAMI", @class = "btn btn-danger fas fa-trash-alt" })
+                    </div>
+                </td>
+                @*<td class="oculto">
+                    @Html.Label((item.Vive.ToString() == "True") ? "SI" : "NO")
+                </td>*@
+            </tr>
+        }
+    </tbody>
+</table>
+<div class="BTAcciones">
+    <!-- Button trigger modal -->
+    @Html.ActionLink("Agregar", "FamiliaCUD", new { ID_persona = 0, idPersonaFamilia = 0 }, new { @class = "btn btn-primary" })
+    @Ajax.ActionLink("Sin Familiares", "SinFamiliar", new { idper = (int)ViewBag.Id }, new AjaxOptions { HttpMethod = "POST", OnSuccess = "Exito(data,status,xhr)", OnFailure = "Falla", }, new { @class = "btn btn-info" })
+
+</div>
+<br />
+@*<button type="button" class="btn btn-primary Nuevo_REG" data-toggle="modal" data-target="#ModalEIA" data-IdTabla="TablaFamilia">
+    Agrgar Familiar
+
+</button>*@

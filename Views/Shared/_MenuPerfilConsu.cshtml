@@ -1,0 +1,48 @@
+﻿<!--
+
+ESTE MENU Y TODOS LOS ARCHIVOS DE MENU DEBEN SER MEJORADOS/REVISADOS:
+    SE DEBE QUITAR EL STYLE Y UBICAR DONDE CORRESPONDE,
+    SE DEBE CREAR EL SUBMENU QUE AHORA ESTA CREADO CON UN BOTON TIPO COMBO DESPLEGABLE DE UNA MEJOR MANERA
+    SE DEBE RVISAR QUE CADA LINK DEL SUBMENÚ VAYA DONDE CORRESPONDA
+    CADA MENU DE CADA PERFIL SE DEBE CREAR CON LOS LINKS DEBIDOS PARA CADA PERFIL, AL MOMENTO QUE SE HIZO SE GENERARON LINKS MEDIO AL TUN TUN PARA PROBAR
+-->
+@{
+
+}
+<!--
+<h2>MenuPerfil</h2>
+-->
+<!--
+TODO EL STYLE DEBE IR EN OTRO ARCHIVO CSS
+-->
+<li class="">@Html.ActionLink("Principal", "Index", "Consultor", new { id = 9 }, htmlAttributes: new { @class = "nav-link" })</li>
+
+<li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Exportación Escuelas
+    </a>
+    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+        <a class="dropdown-item" href="~/callconsulta/exportacionDatosBasicos">Inscriptos Datos Basicos</a>
+        <a class="dropdown-item" href="~/callconsulta/exportacionDatosPersonales">Inscriptos Datos Personales</a>
+    </div>
+
+</li>
+<!-- ESTE LINK "TABLA" ES TRANSITORIO Y DEBERÁ SER ELIMINADO UNA VEZ FINALIZADA LA CREACION DE ESTA APLICACION
+    ES SOLO A LOS FINES DE CARGAR Y MODIFICAR LA TABLA PARA NUEVOAS CONSULTAS-->
+@*Acceso directo a la tabla*@
+@*<li class="nav-item">@Html.ActionLink("TABLA", "Index", "ConsultaProgramadas", null, htmlAttributes: new { @class = "nav-link" })</li>*@
+
+<!-- Combo desplegable en el menu usado al principio y cambiado por el menu lateral en el INDEX de CallConsulta-->
+<!--
+<li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Consultas
+    </a>
+    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+        <a class="dropdown-item" href="">Por Delegacion</a>
+        <a class="dropdown-item" href="">Por Institucion</a>
+        <a class="dropdown-item" href="">Por Provincia</a>
+        <a class="dropdown-item" href="">Por Periodo de inscripciones</a>
+    </div>
+</li>
+-->

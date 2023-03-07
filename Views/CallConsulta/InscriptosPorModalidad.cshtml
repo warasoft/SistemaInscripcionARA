@@ -1,0 +1,181 @@
+﻿@model SINU.Models.DataTableVM
+
+@{
+    ViewBag.Title = "Inscriptos Por Modalidad: " + ViewBag.modalidadElegida;
+    var TotalINSC = ViewBag.CantReg;
+}
+
+<h2>
+    @ViewBag.Title
+</h2>
+
+<p>
+    @*<div class="alert alert-success text-dark" role="alert" style="background-color: #346691!important;color: white !important;">-  <span style="float:right">TOTAL DE INSCRIPTOS: @TotalINSC</span></div>*@
+    <div class="alert alert-success text-right text-secondary" role="alert" style="background-color: #346691!important; color:white !important;"> TOTAL DE INSCRIPTOS: @TotalINSC</div>
+
+</p>
+
+<div>
+    <!-- en esta linea estoy llamando al Index de ConsultaProgramadas
+        con el id de la consulta que deseo se encuentre activa
+        cuando arme el menú lateral de consultas-->
+    @Html.ActionLink("Atras", "Index", "CallConsulta", new { id = ViewBag.ActivarId }, new { @class = "btn btn-primary w-80  btn-dark" })
+</div>
+
+@Html.TablaHelper(Model.TablaVista,"dark")
+
+<!-- ***********************************************************************-->
+<!-- COPIAR TODO ESTE SCRIPT DE DATATABLE PARA TODAS LAS TABLAS DEL SISTEMA-->
+<!-- ***********************************************************************-->
+<!--Para establecer Formato de Tabla-->
+<!-- Establecer la tabla  <table class="table table-filters" id="le-filters">-->
+<!-- Agregar en las columnas que no deseo ordenar  <th class="no-sort"> -->
+<!-- Agregar en las columnas que no deseo ordenar ni buscar  <th class="ni-o-ni-bu"> -->
+<!-- Rodear la tr de las th con <thead> </thead>-->
+<!-- Rodear el contenido de la tabla con <tbody>-->
+
+@section Scripts{
+    <script type="text/javascript">
+
+        //datatablesAjax
+        tablaDatos= @Html.tablaToJson(Model)
+
+        idInputSearch = `searchText${window.location.pathname}-${tablaDatos.TablaVista}`
+        $(":input[type='search']").on("keyup", async function () {
+            sessionStorage.setItem(idInputSearch, $(this).val());
+        });
+        columns = tablaDatos.Columnas;
+        columns.push({ data: "Opciones", searchable: false, orderable: false, title: 'Opciones', className: 'noPrint' });
+        filtroInicial = tablaDatos.filtrosExtras;
+        var input_filter_value;
+        var input_filter_timeout = null;
+        primerCarga = true;
+
+        titleTable = $(`#dataTable-${tablaDatos.TablaVista}`).prev(':header').html();
+
+        var table = $(`#dataTable-${tablaDatos.TablaVista}`).DataTable({
+            "serverSide": true,
+            "processing": true,
+            searchDelay: 900,
+            "ajax": {
+                url: "@Url.Action("CustomServerSideSearchActionAsync", "AjaxDataTable")",
+                type: "POST",
+                //async: false,
+                data: function (data) {
+                    if (primerCarga) {
+                        primerCarga = false;
+
+                        data.search.value = sessionStorage.getItem(idInputSearch);
+
+                    };
+
+                    sessionStorage.getItem(idInputSearch) == undefined ? sessionStorage.setItem(idInputSearch, "") : null;
+                    data.filtrosExtras = [];
+                    $.each(filtroInicial, function (index,item) {
+                        data.filtrosExtras.push(item);
+                    })
+
+                    data.tablaVista = tablaDatos.TablaVista;
+
+                    data.columns.pop()
+                },
+                dataSrc: function (json) {
+
+                    $.each(json.data, function (index, item) {
+
+                        botonDetalle = `<a class='mr-1 btn btn-info fas fa-bars load-submit' href='/Postulante?ID_Postulante=${item.IdPostulantePersona}'  data-toggle='tooltip' data-placement='top' title='Detalles'></a>`;
+
+                        item.Opciones = `<div class="d-flex justify-content-around">${botonDetalle}</div>`
+                    });
+                    return json.data;
+                }
+            },
+            dom: '<"container row justify-content-center m-0"<"col-md-6 col-sm-12"lB><"col-md-6 col-sm-12"f><"container  row mt-1">>r<"col-sm-12"t><"container row  d-flex"<"col-md-6 col-sm-12"i><"col-md-6 col-sm-12"p>>',
+             buttons: [
+                 {
+                     extend: 'copyHtml5',
+                     text: 'Copiar' ,
+                     exportOptions: {
+                         columns: ':not(.noPrint)'
+                     },
+                     title: titleTable,
+                 },
+                 {
+                     extend: 'excelHtml5',
+                     exportOptions: {
+                         columns: ':not(.noPrint)'
+                     },
+                     title: titleTable,
+                 },
+                 {
+                     extend: 'pdfHtml5',
+                     exportOptions: {
+                         columns: ':not(.noPrint)'
+                     },
+                     orientation: 'landscape',
+                     title: titleTable,
+                     pageSize:'LEGAL'
+
+                 },
+                 {
+                     extend: 'print',
+                     text: 'Imprimir',
+                     exportOptions: {
+                         columns: ':not(.noPrint)'
+                     },
+                     title: titleTable,
+                 },
+             ],
+            "language":
+            {
+                "sProcessing": "<span class='fa-stack fa-lg'>\n\<i class='fa fa-spinner fa-spin fa-stack-2x fa-fw'></i>\n\</span>&nbsp;&nbsp;&nbsp;&nbsp;Cargando...",
+                "sLengthMenu": "Mostrar _MENU_ registros",
+                "sZeroRecords": "No se encontraron resultados",
+                "sEmptyTable": "Ningún dato disponible en esta tabla",
+                "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                "sInfoPostFix": "",
+                "sSearch": "Buscar:",
+                "sUrl": "",
+                "sInfoThousands": ",",
+                "sLoadingRecords": "Cargando...",
+                "oPaginate": {
+                    "sFirst": "Primero",
+                    "sLast": "Último",
+                    "sNext": "Siguiente",
+                    "sPrevious": "Anterior"
+                },
+                "oAria": {
+                    "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                }
+            },
+            "columns": columns,
+            "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Todos"]],
+            responsive: true,
+
+        }).on('processing.dt', function (e, settings, processing) {
+            if (processing) {
+                $(".dataTables_wrapper").addClass("disabled");
+            } else {
+                $(".dataTables_wrapper").removeClass("disabled");
+            }
+        });
+
+
+        //establesco parametro de busqueda para al almacenamineto en el lado del cliente
+        table.on('search.dt', function () {
+            sessionStorage.setItem(idInputSearch,table.search());
+        });
+        $(document).ready(function () {
+            if (sessionStorage.getItem(idInputSearch) != undefined) {
+                table.search(sessionStorage.getItem(idInputSearch)).draw();
+                if (sessionStorage.getItem(idInputSearch) != "") {
+                    $("#dataTable-vExportacionDatosBasicos_filter input").focus()
+                }
+
+            };
+        })
+    </script>
+}

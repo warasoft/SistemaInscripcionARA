@@ -1,0 +1,61 @@
+﻿@model System.Web.Mvc.HandleErrorInfo
+<!-- xxxxxxxxxxxx Debo indicar el TITLE de la pantalla y el MENUPERFIL correspondiente en todas las pantallas xxxxxxxxxxxxxx -->
+@{
+    ViewBag.Title = "Error General";
+
+    //ViewBag.Menu = SINU.Models.Func.CorrespondeMenu();
+}
+@*@section MenuPerfil{
+        <li class="nav-item">@Html.ActionLink("Error", "", "", null, htmlAttributes: new { @class = "nav-link" })</li>
+        @Html.Partial((String)@ViewBag.Menu);
+    }*@
+<!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx  -->
+<style>
+
+    @@media screen and (max-width: 600px) {
+        .bordererror {
+            border-right: hidden !important;
+            border-bottom: #67676773 2px solid;
+        }
+    }
+
+    @@media screen and (min-width: 600px) {
+        .bordererror {
+            border-bottom: hidden !important;
+            border-right: #67676773 2px solid;
+        }
+    }
+
+    .text-center {
+        text-align: center
+    }
+
+    .negro-sub {
+        text-decoration: underline;
+    }
+</style>
+<br />
+<div class="row text-center" style="margin-top:3vw">
+    <div class="col-sm-12 " >
+        <img class="img-fluid " style="width: 22vh; margin-bottom: -3rem" accesskey="" src="~/Imagenes/monitor_error.png" />
+    </div>
+    <div class="col-sm-12 ">
+        <div>
+            <h2 class="text-black-50 text-center" style="font-size:15vh">Error!!</h2>
+            <h2 style="font-size:5vh; color:#ff3c3c" class="text-center">Error al procesar la solicitud.</h2>
+            <p class="text-danger text-center">
+
+
+                @if (Model != null) { 
+
+                    
+                    <h4 class="text-center"> @Model.Exception.Message </h4>
+                    
+
+                }
+                <a href="~/Home/Index" class="card-link">Ir a la Pagina Principal</a>
+
+            </p>
+        </div>
+    </div>
+</div>

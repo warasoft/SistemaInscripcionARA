@@ -1,0 +1,263 @@
+﻿@model SINU.Models.RegisterViewModel
+@{
+    ViewBag.Title = "Registro";
+
+}
+<style>
+    .form-control {
+        border-bottom: 2px solid #00bfff !important;
+    }
+</style>
+<div class="text-center">
+    <h2>@ViewBag.Title</h2>
+    <h6><a href="https://www.youtube.com/watch?v=3c7XJe4HppU" target="_blank">Video ayuda para el Registro</a></h6>
+</div>
+<div class="row text-center">
+
+    <div class="col-md-6 offset-md-3 card shadow-sm   pl-5 pr-5 pt-2">
+
+        <section id="registerForm">
+            @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", @role = "form", @id = "FormRegistro" }))
+            {
+                @Html.AntiForgeryToken()
+                if (Model.IdInstituto != 1)
+                {
+                    <h4>@Html.Raw(ViewBag.Inst)</h4>
+                    <hr />
+                }
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group has-error">
+                    <b>@Html.LabelFor(m => m.Apellido, new { @class = "col-md-12 control-label" })</b>
+                    <div class="input-group justify-content-center">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" style="color: white; background-color: #00bfff ;">
+                                <i class="fa fa-align-justify "></i>
+                            </span>
+                        </div>
+
+                        @Html.TextBoxFor(m => m.Apellido, new { @class = "form-control" })
+                    </div>
+
+                    @Html.ValidationMessageFor(model => model.Apellido, "", new { @class = "text-danger" })
+
+
+                </div>
+                <div class="form-group">
+                    <b>@Html.LabelFor(m => m.Nombre, new { @class = "col-md-12 control-label" })</b>
+                    <div class="input-group justify-content-center">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" style="color: white; background-color: #00bfff ;">
+                                <i class="fa fa-align-justify "></i>
+                            </span>
+                        </div>
+
+                        @Html.TextBoxFor(m => m.Nombre, new { @class = "form-control" })
+                    </div>
+                    @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
+
+                </div>
+                <div class="form-group">
+                    <b>@Html.LabelFor(m => m.DNI, new { @class = "col-md-12 control-label" })</b>
+                    <div class="input-group justify-content-center">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" style="color: white;background-color: #00bfff; padding: 9px;">
+                                <i style="font-size:0.7rem">123</i>
+                            </span>
+                        </div>
+                        @Html.TextBoxFor(m => m.DNI, new { @class = "form-control" })
+                    </div>
+
+                    @Html.ValidationMessageFor(model => model.DNI, "", new { @class = "text-danger" })
+
+                </div>
+                <div class="form-group">
+                    <b>@Html.LabelFor(m => m.Email, new { @class = "col-md-12 control-label" })</b>
+                    <div class="input-group justify-content-center">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" style="color: white; background-color: #00bfff ;">
+                                <i class="fa fa-envelope "></i>
+                            </span>
+                        </div>
+                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                    </div>
+                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+
+                </div>
+
+                <div class="form-group">
+                    <b>@Html.LabelFor(m => m.ConfirmEmail, new { @class = "col-md-12 control-label" })</b>
+                    <div class="input-group justify-content-center">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" style="color: white; background-color: #00bfff ;">
+                                <i class="fa fa-envelope "></i>
+                            </span>
+                        </div>
+                        @Html.TextBoxFor(m => m.ConfirmEmail, new { @class = "form-control" })
+                    </div>
+                    @Html.ValidationMessageFor(model => model.ConfirmEmail, "", new { @class = "text-danger" })
+
+                </div>
+                <div class="form-group">
+                    <b>@Html.LabelFor(m => m.Password, new { @class = "col-md-12 control-label" })</b>
+                    <div class="input-group justify-content-center">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" style="color: white; background-color: #00bfff ;"><i class="fa fa-key"></i></span>
+                        </div>
+                        @Html.PasswordFor(m => m.Password, new { @class = "form-control", @id = "Contraseña" })
+                    </div>
+                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+
+
+                </div>
+                <div class="form-group">
+                    <b>@Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-12 control-label" })</b>
+                    <div class="input-group justify-content-center">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" style="color: white; background-color: #00bfff ;"><i class="fa fa-key"></i></span>
+                        </div>
+                        @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                    </div>
+                    @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+
+                </div>
+                <div class="form-group">
+                    <b>@Html.LabelFor(m => m.IdInstituto, new { @class = "col-md-12 control-label" })</b>
+                    <div class="input-group justify-content-center">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" style="color: white; background-color: #00bfff ;">
+                                <i class="fa fa-list"></i>
+                            </span>
+                        </div>
+                        @Html.DropDownListFor(m => m.IdInstituto, (SelectList)Model.ListIntitutos, "Seleccione modalidad a inscribirse", htmlAttributes: new { @class = "form-control selectpicker " })
+
+                    </div>
+                    <div class="h-100"></div>
+                    @Html.ValidationMessageFor(model => model.IdInstituto, "", new { @class = "text-danger" })
+
+                </div>
+                <div class="form-group">
+                    <b>@Html.LabelFor(m => m.idOficinaYDelegacion, new { @class = "col-md-12 control-label" })</b>
+                    <div class="input-group justify-content-center">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" style="color: white; background-color: #00bfff ;">
+                                <i class="fa fa-list"></i>
+                            </span>
+                        </div>
+                        @Html.DropDownListFor(m => m.idOficinaYDelegacion, (SelectList)Model.ListOficinaYDelegacion, "Seleccione la más cercana", htmlAttributes: new { @class = "form-control selectpicker", @id = "DelegacionOfi" })
+                    </div>
+                    <div class="h-100"></div>
+                    @Html.ValidationMessageFor(model => model.idOficinaYDelegacion, "", new { @class = "text-danger" })
+
+                </div>
+                <div id="DatosDelegacion" class="form-group control-label" hidden>
+                    @Html.Label("Dirección", new { @class = "col-md-2 control-label" })
+                    <p id="Direccion" class="control-label col"><b>asdasda</b></p>
+                    @Html.Label("Teléfono", new { @class = "col-md-2 control-label" })
+                    <p id="Telefono" class="control-label col"><b>asdasda</b></p>
+                    @Html.Label("Celular", new { @class = "col-md-2 control-label" })
+                    <p id="Celular" class="control-label col"><b>asdasda</b></p>
+                </div>
+                <br />
+
+                @*<div class="form-group">
+                @Html.LabelFor(model => model.Zona, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.Zona, (SelectList)ViewBag.ListaZonas, htmlAttributes: new { @class = "form-control" })
+                </div>
+            </div>*@
+
+                //parametro enviado oculto al controlador para almacenar la preferencia
+
+
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <input type="button" id="BotonRegistro" value="Registrarse" class="btn" style="color:white;background-color: #00bfff;" />
+                    </div>
+                </div>
+                <div class="modal fade" id="ModalRegistrar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">SINU:</h5>
+                            </div>
+                            <div class="modal-body">
+                                Te pedimos que pongas especial atención a la carga de los datos solicitados, principalmente escribir en forma correcta el e-mail y eleccion de la delegacion mas cercana, para evitar demoras en proceso de inscripcion.
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                <button type="submit" class="btn btn-primary" onclick="$('#ModalRegistrar').modal('hide')">Registrarse</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+        </section>
+    </div>
+</div>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $(".selectpicker").selectpicker({
+            size: 7,
+            noneSelectedText: 'Ninguna Opcion Seleccionada'
+
+        });
+        $("#BotonRegistro").on("click", function () {
+            if ($("#FormRegistro").valid()) {
+                $("#ModalRegistrar").modal("show");
+            }; 
+        });
+
+        $(document).ready(function () {
+
+            //bloqueo el autocompletado de tos los input de esta vista
+            $(":input").attr("autocomplete", "off");
+            $(':input').on("cut copy paste", function (e) {
+                e.preventDefault();
+            });
+   
+            //si el dni eciste anuncio que el mismo corresponde a una cuenta existente 
+
+            if ($("#IdInstituto").val() != "") {
+                $("#IdInstituto").next("button[data-id='IdInstituto']").attr('disabled', 'true').children().css('color', 'black !important');
+
+            }
+            $("#Contraseña").attr("data-toggle", "tooltip")
+                .attr("data-placement", "top")
+                .attr("title", "Ingresá una clave de acceso que te resulte familiar y que utilizarás a lo largo del proceso, cada vez que tengas que acceder")
+                .tooltip({ 'trigger': 'focus' });
+
+            var model = '@Html.Raw(Model.DatosDelegacion)';
+            var jsonDatosDelegacion = JSON.parse(model);
+            $("#DelegacionOfi").on("changed.bs.select", function () {
+                if ($(this).val() != "") {
+                    var value = $(this).val();
+                    var DeleOfi = "";
+                    $.each(jsonDatosDelegacion, function (index, item) {
+                        DeleOfi = (item[0] == value) ? item : DeleOfi;
+                        if (DeleOfi != "") {
+                            return false
+                        }
+                    });
+                    $("#Direccion b").text(DeleOfi[1]);
+                    $("#Telefono b").text(DeleOfi[2]);
+                    $("#Celular b").text(DeleOfi[3] == "" ? "-------" : DeleOfi[3]);
+                    $("#DatosDelegacion").removeAttr("hidden");
+                } else {
+                    $("#DatosDelegacion").attr("hidden", true);
+                }
+            })
+
+            $('form').on('submit', async function (e) {
+                if ($(this).valid()) {
+
+                    $.Cargando();
+                }
+            });
+        });
+    </script>
+}

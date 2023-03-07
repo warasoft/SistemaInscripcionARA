@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="db99460e529a4ec39037f43320756a9f" Name="Diagram1" ZoomLevel="86">
+        <EntityTypeShape EntityType="SINUModel.Antropometria" Width="1.5" PointX="7.5" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SINUModel.AspNetUsers" Width="1.5" PointX="3" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="SINUModel.Baja" Width="1.5" PointX="0.75" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SINUModel.Configuracion" Width="1.5" PointX="2.5" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SINUModel.DocPresentado" Width="1.5" PointX="12.75" PointY="8.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SINUModel.Domicilio" Width="1.5" PointX="0.75" PointY="12.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SINUModel.EstablecimientoRindeExamen" Width="1.5" PointX="8.25" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="SINUModel.Estado" Width="1.5" PointX="8.25" PointY="28" IsExpanded="true" />
+        <EntityTypeShape EntityType="SINUModel.EstadoOcupacional" Width="1.5" PointX="3" PointY="21" IsExpanded="true" />
+        <EntityTypeShape EntityType="SINUModel.Estudio" Width="1.5" PointX="0.75" PointY="20.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SINUModel.Etapa" Width="1.5" PointX="8.25" PointY="30.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SINUModel.Familiares" Width="1.5" PointX="5.25" PointY="12.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SINUModel.Fuerza" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="SINUModel.Inscripcion" Width="1.5" PointX="10.5" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="SINUModel.Institucion" Width="1.5" PointX="8.25" PointY="20.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SINUModel.Institutos" Width="1.5" PointX="10.75" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SINUModel.NiveldEstudio" Width="1.5" PointX="1.5" PointY="25.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SINUModel.NivelIdioma" Width="1.5" PointX="6" PointY="21" IsExpanded="true" />
+        <EntityTypeShape EntityType="SINUModel.OficinasYDelegaciones" Width="1.5" PointX="8.25" PointY="23.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SINUModel.PeriodosInscripciones" Width="1.5" PointX="10.5" PointY="20.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SINUModel.Persona" Width="1.5" PointX="3" PointY="10.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SINUModel.PersonaIdioma" Width="1.5" PointX="8.25" PointY="12.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SINUModel.Postulante" Width="1.5" PointX="5.25" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SINUModel.PostulanteViaje" Width="1.5" PointX="7.5" PointY="16.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SINUModel.Preferencia" Width="1.5" PointX="10.75" PointY="12.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SINUModel.Secuencia_EtapaEstado" Width="1.5" PointX="10.5" PointY="28.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SINUModel.Sexo" Width="1.5" PointX="0.75" PointY="28.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SINUModel.SituacionOcupacional" Width="1.5" PointX="5.25" PointY="16.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SINUModel.SituacionRevista" Width="1.5" PointX="0.75" PointY="9.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SINUModel.sysdiagrams" Width="1.5" PointX="12.75" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SINUModel.TipoDocPresentado" Width="1.5" PointX="10.5" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SINUModel.TipoNacionalidad" Width="1.5" PointX="0.75" PointY="30.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SINUModel.ConfiguracionAdmin" Width="1.5" PointX="12.75" PointY="12.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SINUModel.InscripcionEtapaEstado" Width="1.5" PointX="12.75" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="SINUModel.vConfiguracionAdmin" Width="1.5" PointX="12.75" PointY="14.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SINUModel.vEntrevistaLugarFecha" Width="1.5" PointX="14.75" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SINUModel.vEstCivil" Width="1.5" PointX="14.75" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SINUModel.vLOCALIDAD" Width="1.5" PointX="18.625" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SINUModel.vPeriodosInscrip" Width="1.5" PointX="9.75" PointY="16.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SINUModel.vPersona_ActividadMilitar" Width="1.5" PointX="16.75" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SINUModel.vPersona_Antropometria" Width="1.5" PointX="16.75" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SINUModel.vPersona_DatosPer" Width="1.5" PointX="16.75" PointY="16.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SINUModel.vPersona_Domicilio" Width="1.5" PointX="12.75" PointY="18.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SINUModel.VPersona_Estudio" Width="1.5" PointX="18.75" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SINUModel.vPersona_Idioma" Width="1.5" PointX="18.75" PointY="12.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SINUModel.vProvincia_Depto_Localidad" Width="1.5" PointX="14.75" PointY="20.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SINUModel.vRELIGION" Width="1.5" PointX="20.75" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SINUModel.vSecuencia_EtapaEstado" Width="1.5" PointX="20.75" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SINUModel.vSeguridad_Grupos" Width="1.5" PointX="20.75" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SINUModel.vSeguridad_Grupos_Usuarios" Width="1.5" PointX="20.75" PointY="10.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SINUModel.vSeguridad_Usuarios" Width="1.5" PointX="20.75" PointY="13.625" IsExpanded="true" />
+        <AssociationConnector Association="SINUModel.FK_Antropometria_Persona" ManuallyRouted="false" />
+        <AssociationConnector Association="SINUModel.FK_Postulante_AspNetUsers" ManuallyRouted="false" />
+        <AssociationConnector Association="SINUModel.FK_DocPresentado_Inscripcion" ManuallyRouted="false" />
+        <AssociationConnector Association="SINUModel.FK_DocPresentado_TipoDocPresentado" ManuallyRouted="false" />
+        <AssociationConnector Association="SINUModel.FK_Persona_DomicilioActual" ManuallyRouted="false" />
+        <AssociationConnector Association="SINUModel.FK_Persona_DomicilioDNI" ManuallyRouted="false" />
+        <AssociationConnector Association="SINUModel.FK_Inscripcion_EstablecimientoRindeExamen" ManuallyRouted="false" />
+        <AssociationConnector Association="SINUModel.FK_Secuencia_Estado" ManuallyRouted="false" />
+        <AssociationConnector Association="SINUModel.FK_SituacionOcupacional_EstadoOcupacional" ManuallyRouted="false" />
+        <AssociationConnector Association="SINUModel.FK_Estudio_NiveldEstudio" ManuallyRouted="false" />
+        <AssociationConnector Association="SINUModel.FK_Secuencia_Etapa" ManuallyRouted="false" />
+        <AssociationConnector Association="SINUModel.FK_Familiares_Persona" ManuallyRouted="false" />
+        <AssociationConnector Association="SINUModel.FK_Familiares_Postulante" ManuallyRouted="false" />
+        <AssociationConnector Association="SINUModel.FK_Inscripcion_Institucion" ManuallyRouted="false" />
+        <AssociationConnector Association="SINUModel.FK_Inscripcion_OficinasYDelegaciones" ManuallyRouted="false" />
+        <AssociationConnector Association="SINUModel.FK_Inscripcion_Postulante" ManuallyRouted="false" />
+        <AssociationConnector Association="SINUModel.FK_InscripcionEtapaEstado_Inscripcion" ManuallyRouted="false" />
+        <AssociationConnector Association="SINUModel.FK_PeriodosInscripciones_Institucion" ManuallyRouted="false" />
+        <AssociationConnector Association="SINUModel.FK_PersonaIdioma_NivelIdioma" ManuallyRouted="false" />
+        <AssociationConnector Association="SINUModel.FK_PersonaIdioma_NivelIdiomaEscribe" ManuallyRouted="false" />
+        <AssociationConnector Association="SINUModel.FK_PersonaIdioma_NivelIdiomaLee" ManuallyRouted="false" />
+        <AssociationConnector Association="SINUModel.FK_Persona_Sexo" ManuallyRouted="false" />
+        <AssociationConnector Association="SINUModel.FK_Persona_TipoNacionalidad" ManuallyRouted="false" />
+        <AssociationConnector Association="SINUModel.FK_PersonaIdioma_Persona" ManuallyRouted="false" />
+        <AssociationConnector Association="SINUModel.FK_Postulante_Persona" ManuallyRouted="false" />
+        <AssociationConnector Association="SINUModel.FK_PostulanteViaje_Postulante" ManuallyRouted="false" />
+        <AssociationConnector Association="SINUModel.FK_InscripcionEtapaEstado_Secuencia_EtapaEstado" ManuallyRouted="false" />
+        <AssociationConnector Association="SINUModel.PersonaEstudio" ManuallyRouted="false" />
+        <AssociationConnector Association="SINUModel.PersonaSituacionOcupacional" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="SINUModel.ActividadMilitar" Width="1.5" PointX="0.75" PointY="5.375" />
+        <AssociationConnector Association="SINUModel.FK_ActividadMilitar_Fuerza" />
+        <EntityTypeShape EntityType="SINUModel.Interes" Width="1.5" PointX="6.375" PointY="0.75" />
+        <AssociationConnector Association="SINUModel.PersonaInteres" />
+        <EntityTypeShape EntityType="SINUModel.vPersona_SituacionOcupacional" Width="1.5" PointX="19.375" PointY="18.75" />
+        <EntityTypeShape EntityType="SINUModel.Usuario_OficyDeleg" Width="1.5" PointX="10.5" PointY="24.5" />
+        <EntityTypeShape EntityType="SINUModel.vUsuariosAdministrativos" Width="1.5" PointX="21.375" PointY="22.75" />
+        <AssociationConnector Association="SINUModel.FK_Usuario_OficyDeleg_OficinasYDelegaciones" />
+        <EntityTypeShape EntityType="SINUModel.VerificacionPantallas" Width="1.5" PointX="5.375" PointY="2.625" />
+        <AssociationConnector Association="SINUModel.PersonaActividadMilitar" />
+        <EntityTypeShape EntityType="SINUModel.vParam_Grados" Width="1.5" PointX="23.375" PointY="0.75" />
+        <EntityTypeShape EntityType="SINUModel.vPostulanteEtapaEstado" Width="1.5" PointX="5.375" PointY="23.75" />
+        <EntityTypeShape EntityType="SINUModel.vPersona_Familiar" Width="1.5" PointX="23.375" PointY="7.75" />
+        <EntityTypeShape EntityType="SINUModel.CarreraOficio" Width="1.5" PointX="23.375" PointY="14.75" />
+        <EntityTypeShape EntityType="SINUModel.ComoSeEntero" Width="1.5" PointX="15.375" PointY="23.875" />
+        <EntityTypeShape EntityType="SINUModel.Modalidad" Width="1.5" PointX="17.375" PointY="23.75" />
+        <AssociationConnector Association="SINUModel.FK_Postulante_ComoSeEntero" />
+        <EntityTypeShape EntityType="SINUModel.vPersona_DatosBasicos" Width="1.5" PointX="23.375" PointY="23.75" />
+        <EntityTypeShape EntityType="SINUModel.vConvocatoriaDetalles" Width="1.5" PointX="25.75" PointY="0.75" />
+        <EntityTypeShape EntityType="SINUModel.VPersonaProblema" Width="1.5" PointX="25.75" PointY="7.75" />
+        <EntityTypeShape EntityType="SINUModel.C__MigrationHistory" Width="1.5" PointX="25.375" PointY="13.25" />
+        <EntityTypeShape EntityType="SINUModel.AspNetRoles" Width="1.5" PointX="0.75" PointY="19.875" />
+        <EntityTypeShape EntityType="SINUModel.AspNetUserClaims" Width="1.5" PointX="5.25" PointY="29.5" />
+        <EntityTypeShape EntityType="SINUModel.AspNetUserLogins" Width="1.5" PointX="5.25" PointY="32.25" />
+        <EntityTypeShape EntityType="SINUModel.Convocatoria" Width="1.5" PointX="19.625" PointY="29.375" />
+        <EntityTypeShape EntityType="SINUModel.DataProblemaEncontrado" Width="1.75" PointX="8.875" PointY="0.5" />
+        <EntityTypeShape EntityType="SINUModel.DataVerificacion" Width="1.5" PointX="7.25" PointY="35.875" />
+        <EntityTypeShape EntityType="SINUModel.GrupoCarrOficio" Width="1.5" PointX="13.125" PointY="28" />
+        <EntityTypeShape EntityType="SINUModel.ResGrupo" Width="1.5" PointX="15.375" PointY="30.75" />
+        <AssociationConnector Association="SINUModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" />
+        <AssociationConnector Association="SINUModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" />
+        <AssociationConnector Association="SINUModel.FK_Convocatoria_GrupoCarrOficio" />
+        <AssociationConnector Association="SINUModel.FK_Convocatoria_Modalidad" />
+        <AssociationConnector Association="SINUModel.FK_Convocatoria_PeriodosInscripciones" />
+        <AssociationConnector Association="SINUModel.FK_DataProblemaEncontrado_DataVerificacion" />
+        <AssociationConnector Association="SINUModel.FK_DataProblemaEncontrado_Postulante" />
+        <AssociationConnector Association="SINUModel.AspNetUserRoles" />
+        <AssociationConnector Association="SINUModel.AgrupacionCarreraOficio" />
+        <AssociationConnector Association="SINUModel.GrupoCarrOficioResGrupo" />
+        <EntityTypeShape EntityType="SINUModel.vRestriccionesPorConvYFechaPeriodosInscrip" Width="1.5" PointX="25.375" PointY="23.75" />
+        <EntityTypeShape EntityType="SINUModel.vInstitucionesConvocadasYCarrerasAsociadas" Width="1.5" PointX="15.75" PointY="26.75" />
+        <EntityTypeShape EntityType="SINUModel.ConsultaProgramada" Width="1.5" PointX="26.75" PointY="16.75" />
+        <EntityTypeShape EntityType="SINUModel.vConsultaInscripciones" Width="1.5" PointX="27.375" PointY="20.75" />
+        <EntityTypeShape EntityType="SINUModel.vDataProblemaEncontrado" Width="1.5" PointX="27.375" PointY="12.75" />
+        <EntityTypeShape EntityType="SINUModel.VerificacionPantallasCerradas" Width="1.5" PointX="11.75" PointY="0.5" />
+        <AssociationConnector Association="SINUModel.FK_VerificacionPantallasCerradas_Persona" />
+        <AssociationConnector Association="SINUModel.FK_VerificacionPantallasCerradas_VerificacionPantallas" />
+        <AssociationConnector Association="SINUModel.FK_DataVerificacion_VerificacionPantallas" />
+        <AssociationConnector Association="SINUModel.FK_VerificacionPantallasCerradas_Postulante" />
+        <EntityTypeShape EntityType="SINUModel.vVerificacionPantallasYDatosAVerificar" Width="1.5" PointX="18.375" PointY="26.75" />
+        <EntityTypeShape EntityType="SINUModel.TipoPersonal" Width="1.5" PointX="27.375" PointY="4.75" />
+        <EntityTypeShape EntityType="SINUModel.vRestriccionesGrupo" Width="1.5" PointX="27.375" PointY="25.75" />
+        <EntityTypeShape EntityType="SINUModel.vRestriccionesGrupoLista" Width="1.5" PointX="20.375" PointY="26.75" />
+        <EntityTypeShape EntityType="SINUModel.vGruposYCarreras" Width="1.5" PointX="28.375" PointY="7.75" />
+        <EntityTypeShape EntityType="SINUModel.vModalidadYDocumento" Width="1.5" PointX="28.375" PointY="0.75" />
+        <EntityTypeShape EntityType="SINUModel.Delegacion_EstablecExamen" Width="1.5" PointX="14.5" PointY="0.75" />
+        <AssociationConnector Association="SINUModel.FK_Delegacion_EstablecExamen_EstablecimientoRindeExamen" />
+        <AssociationConnector Association="SINUModel.FK_Delegacion_EstablecExamen_OficinasYDelegaciones" />
+        <EntityTypeShape EntityType="SINUModel.vDelegacion_EstablecExamen" Width="1.5" PointX="25.375" PointY="10.75" />
+        <AssociationConnector Association="SINUModel.FK_Institucion_Modalidad" />
+        <EntityTypeShape EntityType="SINUModel.vInstitucionModalidad" Width="1.5" PointX="29.75" PointY="3.75" />
+        <EntityTypeShape EntityType="SINUModel.vSecuencia_EtapaEstadoNoRechazados" Width="1.5" PointX="29.375" PointY="12.75" />
+        <EntityTypeShape EntityType="SINUModel.vSecuencia_EtapaEstadoRECHAZADOS" Width="1.5" PointX="29.375" PointY="16.75" />
+        <EntityTypeShape EntityType="SINUModel.vInscriptosYConvocatorias" Width="1.5" PointX="29.375" PointY="20.75" />
+        <EntityTypeShape EntityType="SINUModel.vOficDeleg_EstablecimientoRindExamen" Width="1.5" PointX="29.375" PointY="24.75" />
+        <EntityTypeShape EntityType="SINUModel.DeclaracionJurada" Width="1.5" PointX="12.75" PointY="31" />
+        <AssociationConnector Association="SINUModel.FK_DeclaracionJurada_Inscripcion" />
+        <EntityTypeShape EntityType="SINUModel.vInscriptosconTitulosProblemas" Width="1.5" PointX="25.375" PointY="29.75" />
+        <EntityTypeShape EntityType="SINUModel.vInscriptosCantYTODASConvocatorias" Width="1.5" PointX="30.375" PointY="7.75" />
+        <EntityTypeShape EntityType="SINUModel.vInscriptosConTitulosProblemasCount" Width="1.5" PointX="22.375" PointY="30.75" />
+        <EntityTypeShape EntityType="SINUModel.vInscriptosYRestriccionesCount" Width="1.5" PointX="29.375" PointY="28.875" />
+        <EntityTypeShape EntityType="SINUModel.vInscriptosYRestriccionesCheck" Width="1.5" PointX="31.375" PointY="11.75" />
+        <EntityTypeShape EntityType="SINUModel.vParentesco" Width="1.5" PointX="30.375" PointY="0.75" />
+        <EntityTypeShape EntityType="SINUModel.vPostPersonaEtapaEstadoUltimoEstado" Width="1.5" PointX="31.375" PointY="19.75" />
+        <EntityTypeShape EntityType="SINUModel.vEntrevistaLugarFechaUltInscripc" Width="1.5" PointX="31.75" PointY="25.75" />
+        <EntityTypeShape EntityType="SINUModel.vPersona_DatosPer_UltInscripc" Width="1.5" PointX="31.375" PointY="30.75" />
+        <EntityTypeShape EntityType="SINUModel.vInscripcionDetalleUltInsc" Width="1.5" PointX="32.375" PointY="0.875" />
+        <EntityTypeShape EntityType="SINUModel.vInscripcionDetalle" Width="1.5" PointX="9.375" PointY="32.75" />
+        <EntityTypeShape EntityType="SINUModel.vInscripcionEtapaEstadoUltimoEstado" Width="1.5" PointX="15.75" PointY="10.75" />
+        <EntityTypeShape EntityType="SINUModel.vExportacionDatosBasicos" Width="1.5" PointX="23.375" PointY="17.75" />
+        <EntityTypeShape EntityType="SINUModel.vExportacion_Escuelas" Width="1.5" PointX="0.75" PointY="33.75" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,294 @@
+﻿@model SINU.ViewModels.GrupoCarrOficiosvm
+
+@{
+    ViewBag.Title = "Grupo Carrera/Oficio";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    List<SelectListItem> lst = new List<SelectListItem>();
+    lst.Add(new SelectListItem() { Text = "Oficiales", Value = "O" });
+    lst.Add(new SelectListItem() { Text = "Suboficiales", Value = "S" });
+    lst.Add(new SelectListItem() { Text = "Marineros", Value = "M" });
+
+
+
+}
+
+<h2>Nuevo Registro</h2>
+
+@using (Html.BeginForm())
+{
+
+    <div class="form-horizontal">
+        @*<h4>GrupoCarrOficio</h4>*@
+        <hr />
+        @Html.AntiForgeryToken()
+
+        @if (ViewBag.Mensaje != null)
+        {<div class="alert alert-warning" role="alert">
+                @ViewBag.Mensaje
+            </div>
+        }
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.IdGrupoCarrOficio, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.IdGrupoCarrOficio, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.IdGrupoCarrOficio, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Descripcion, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Descripcion, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Descripcion, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Personal, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.Personal, new SelectList(lst.ToList(), "Value", "Text", Model.Personal), "Seleccione Personal", new { @class = "form-control", @id = "ddlRegions" })
+            @Html.ValidationMessageFor(model => model.Personal, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <br />
+    <br />
+    <table class="col-6">
+        <thead>
+            <tr class="col-6">
+                <th>
+                    @Html.LabelFor(model => model.Carreras2, htmlAttributes: new { @class = "control-label col-md-6" })
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="row">
+                <td>
+                    @Html.ListBoxFor(model => model.SelectedIDs, new MultiSelectList(Model.Carreras2, "IdCarreraOficio", "CarreraUoficio", Model.SelectedIDs), new { @class = "multiselect form-control", @multiple = "multiple", @id = "ddlTerritories" })
+                    @Html.ValidationMessageFor(Model => Model.SelectedIDs, "", new { @class = "text-danger" })
+                </td>
+                <td>       </td>
+                <td>
+                    <div class="alert alert-info">
+                        Presione la tecla "Ctrl" + click para seleccionar más de una carrera.
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <br />
+    <br />
+
+    <table class="table table-filters table-bordered table-light" id="le-filters" style="width:100%">
+        <thead>
+            <tr>
+
+                <th>@Html.Label("Edad Mínima (Con Autorización)")</th>
+                <th>@Html.Label("Edad Mínima")</th>
+                <th>@Html.Label("Edad Máxima")</th>
+                <th>@Html.Label("Edad a fecha")</th>
+                <th>@Html.Label("Estado Civil")</th>
+                <th>
+                    @Html.Label("Altura Mínima Femenina")
+                </th>
+                <th>
+                    @Html.Label("Altura Mínima Masculina")
+                </th>
+                <th>
+                    @Html.Label("IMC Máximo")
+                </th>
+                <th>
+                    @Html.Label("IMC Mínimo")
+                </th>
+                <th>@Html.Label("Seleccionar")</th>
+</thead>
+        <tbody>
+            @foreach (var item in ViewBag.lstresGrupo as List<SINU.Models.vRestriccionesGrupo>)
+            {
+            <tr>
+                <td>
+                    @item.EdadMinCAutoriz
+                </td>
+                <td>
+                    @item.EdadMin
+                </td>
+                <td>
+                    @item.EdadMax
+                </td>
+                <td>
+                    @item.Edad_a_fecha
+                </td>
+                <td>
+                    @item.EstadoCivil
+                </td>
+                <td>
+                    @item.AlturaMinF
+                </td>
+                <td>
+                    @item.AlturaMinM
+                </td>
+                <td>
+                    @item.IMC_max
+                </td>
+                <td>
+                    @item.IMC_min
+                </td>
+                <td>
+                    @Html.RadioButtonFor(m => m.IdResGrupo, item.IdResGrupo)
+                    @Html.ValidationMessageFor(m => m.IdResGrupo, "", new { @class = "text-danger" })
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+
+    <table>
+        <thead>
+            <tr>
+
+                <th>
+
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><input type="button" value="Nueva Restricción" onclick="location.href='@Url.Action("Create", "ResGrupoes","Hola")'" class="btn btn-default" />
+            </tr>
+        </tbody>
+    </table>
+    <br />
+    <br />
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Guardar" class="btn btn-default" />
+        </div>
+    </div>
+
+
+}
+<div>
+    @Html.ActionLink("Volver", "Index")
+</div>
+@*<button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Tooltip on top">
+        Tooltip on top
+    </button>*@
+
+
+<!-- ***********************************************************************-->
+<!-- COPIAR TODO ESTE SCRIPT DE DATATABLE PARA TODAS LAS TABLAS DEL SISTEMA-->
+<!-- ***********************************************************************-->
+<!--Para establecer Formato de Tabla-->
+<!-- Establecer la tabla  <table class="table table-filters" id="le-filters">-->
+<!-- Agregar en las columnas que no deseo ordenar  <th class="no-sort"> -->
+<!-- Agregar en las columnas que no deseo ordenar ni buscar  <th class="ni-o-ni-bu"> -->
+<!-- Rodear la tr de las th con <thead> </thead>-->
+<!-- Rodear el contenido de la tabla con <tbody>-->
+@section Scripts {
+    <script type="text/javascript">
+        //scrip que permite buscar por cualquier campo en la tabla para su uso requiere que tabla tenga la propiedad id=myTable
+        $(document).ready(function () {
+            $(".table-filters").DataTable({
+                responsive: true,
+                "language":
+                {
+                    "sProcessing": "Procesando...",
+                    "sLengthMenu": "Mostrar _MENU_ registros",
+                    "sZeroRecords": "No se encontraron resultados",
+                    "sEmptyTable": "Ningún dato disponible en esta tabla",
+                    "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                    "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                    "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                    "sInfoPostFix": "",
+                    "sSearch": "Buscar:",
+                    "sUrl": "",
+                    "sInfoThousands": ",",
+                    "sLoadingRecords": "Cargando...",
+                    "oPaginate": {
+                        "sFirst": "Primero",
+                        "sLast": "Último",
+                        "sNext": "Siguiente",
+                        "sPrevious": "Anterior"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                    }
+                },
+
+                "columnDefs": [{
+                    "targets": 'no-sort',
+                    "orderable": false
+                },
+                {
+                    "targets": 'ni-o-ni-bu',
+                    "searchable": false,
+                    "orderable": false
+
+                }]
+
+
+            });
+
+        });
+        //tooltips popper algo
+        $(function () { $('[data-toggle="tooltip"]').tooltip() })
+    </script>
+
+    <script>
+        //aun no me funciona el codigo 04/08/2020
+
+        $(document).ready(function () {
+            //ddlRegions es igual al ID del listado de Personal.
+            $("#ddlRegions").change(function () {
+                //alert($("#ddlRegions").val());
+                // /grupoCarreraOficio /Home/GetTerritoriesList      RegionId es igual a la variable que le paso al controaldor
+
+                $.get("/grupoCarrOficios/DevolverCArrerasFiltradas", { RegionId: $("#ddlRegions").val() }, function (data) {
+                    // VACIAMOS EL DropDownList aca hay que poner
+                    //ddlterritories es ID de la lista carreras
+                    //alert("textovaconcomilla");
+                    $("#ddlTerritories").empty();
+
+                    // AÑADIMOS UN NUEVO label CON EL NOMBRE DEL ELEMENTO SELECCIONADO
+                    //$("#ddlTerritories").append("<option value> -- Seleccionar Carreras Para " + $("#ddlRegions option:selected").text() + " --</option>")
+
+                    // CONSTRUIMOS EL DropDownList A PARTIR DEL RESULTADO Json (data)
+                    $.each(data, function (index, row) {
+                        //alert(row.Value)
+                        $("#ddlTerritories").append("<option value='" + row.Value + "'>" + row.Text + "</option>")
+                    });
+                });
+            });
+        });
+
+                                //$(document).ready(function () {
+                                //    //ddlRegions es igual al ID del listado de Personal.
+                                //    $("#ComboRestricciones").change(function () {
+                                //        //$("#ComboRestricciones").prop("disabled", true);
+                                //        alert($("#ComboRestricciones").val());
+                                //        // /grupoCarreraOficio /Home/GetTerritoriesList      RegionId es igual a la variable que le paso al controaldor
+
+                                //        $.get("/grupoCarrOficios/DevolverRestricciones", { RegionId: $("#ComboRestricciones").val() }, function (data) {
+                                //            // VACIAMOS EL DropDownList aca hay que poner
+                                //            //ddlterritories es ID de la lista carreras
+                                //            //alert("textovaconcomilla");
+                                //            //$("#GruposyCarreras").empty();
+
+                                //            // AÑADIMOS UN NUEVO label CON EL NOMBRE DEL ELEMENTO SELECCIONADO
+                                //            $("#ComboRestricciones").append("<option value>Seleccionar Restricción" + "</option>")
+
+                                //            // CONSTRUIMOS EL DropDownList A PARTIR DEL RESULTADO Json (data)
+                                //            $.each(data, function (index, row) {
+
+                                //                $("#ComboRestricciones").prop("disabled", false);
+                                //                $("#ComboRestricciones").append("<option value='" + row.Value + "'>" + row.Text + "</option>")
+                                //            });
+                                //        });
+                                //    });
+                                //});
+    </script>
+
+}

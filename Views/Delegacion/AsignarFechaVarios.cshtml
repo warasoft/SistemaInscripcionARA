@@ -1,0 +1,257 @@
+﻿@model SINU.ViewModels.ListadoPostulanteAsignarFecha
+@*@{
+        //ViewBag.Title = "AsignarFechaVarios";
+
+    }*@
+
+<link rel="stylesheet" type="text/css" href="~/Content/jquery.datetimepicker.css" />
+@using (Ajax.BeginForm("AsignarFechaVarios", "Delegacion", null,
+    new AjaxOptions
+    {
+        HttpMethod = "POST",
+        OnSuccess = "Exito(data,status,xhr)",
+        OnFailure = "Falla",
+        LoadingElementId = "carga",
+//LoadingElementDuration = 1000,
+//UpdateTargetId = "resultTarget"
+},
+    new { id = "BeginFormAsignarFechaVarios" }))
+{
+    @*@using (Html.BeginForm("AsignarFechaVarios", "Delegacion"))
+        {*@
+    @Html.AntiForgeryToken()
+
+    @*<h2 class="text-center">Asignar fecha ha varios Postulante</h2>*@
+    <table class="table table-filters table-bordered table-light text-center" id="le-filters" style="width:100%">
+        <thead>
+            <tr>
+                <th class="secondary">
+                    @Html.DisplayNameFor(model => model.AsignarFechaVM[0].Nombres)
+                </th>
+                <th class="secondary">
+                    @Html.DisplayNameFor(model => model.AsignarFechaVM[0].Apellido)
+                </th>
+                <th class="secondary">
+                    @Html.DisplayNameFor(model => model.AsignarFechaVM[0].Etapa)
+                </th>
+                <th class="secondary">
+                    @Html.DisplayNameFor(model => model.AsignarFechaVM[0].Estado)
+                </th>
+                <th class="ni-o-ni-bu">
+                    Opciones
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.AsignarFechaVM)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelitem => item.Apellido)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelitem => item.Nombres)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelitem => item.Etapa)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelitem => item.Estado)
+                    </td>
+                    <td>
+                        <input name="Select" type="checkbox" value="@item.IdInscripcionEtapaEstado" id="myCheck" onclick="myFunction()" />
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+
+    </table>
+    <br />
+    <form>
+        <div class="card" style="background-color:gainsboro">
+            <div class="card-body">
+                <div class="container">
+                    <h1 class="display-4">Asignar fecha a varios postulantes</h1>
+                    <p class="lead">Selecciones varios postulantes, asigene una fecha y un lugar para rendir examenes</p><br />
+                    <div class="row">
+                        <div class="col-md-6 ">
+                            <div class="form-group">
+                                <label for="recipient-name" class="col-form-label">Fecha de Presentacion:</label><br />
+                                @Html.TextBox("Fecha", "", "{0:dd/MM/yyyy HH:mm }", new { @class = "form-control  text-center", @id = "datetimepicker", @readonly = true, @required = "required" })
+
+                            </div>
+                            <div class="form-group">
+                                <label for="recipient-name" class="col-form-label">Lugar de Presentacion:</label><br />
+                                <div>
+                                    @Html.DropDownListFor(m => m.LugarPresentacion, Model.LugarPresentacion, "---Seleccione la corresp ---", htmlAttributes: new { @id = "LugarExamen", @class = "form-control selectpicker" })
+                                </div>
+
+                            </div>
+                            <div class="form-group" id="AvisoLugar" hidden>
+                                <div class="alert alert-danger mt-4">
+                                    <h6 class="font-weight-bold">Seleccione un Lugar de Presentación!!!</h6>
+                                </div>
+                            </div>
+                            <div class="form-group" id="AvisoFecha" hidden>
+                                <div class="alert alert-danger mt-4">
+                                    <h6 class="font-weight-bold">Seleccione una Fecha de Presentación!!!</h6>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 ">
+                            <div class="form-group">
+                                <div id="DatosDelegacion" class="forsm-group control-label" hidden>
+                                    <h4 class="text-center">Datos del Lugar</h4>
+                                    @Html.Label("Jurisdiccion , localidad y Departamento", new { @class = "col-md-6 control-label" })
+                                    <p id="Direccion" class="control-label col"><b>asdasda</b></p>
+                                    @Html.Label("Nombre Del Lugar", new { @class = "col-md-6 control-label" })
+                                    <p id="Telefono" class="control-label col"><b>asdasda</b></p>
+                                    @Html.Label("Direccion", new { @class = "col-md-6 control-label" })
+                                    <p id="Celular" class="control-label col"><b>asdasda</b></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                   
+                    <div class="row float-lg-right float-md-right float-sm-none">
+                        <div>
+                            @Html.ActionLink("Cerrar", "Index",null, new { @class = "btn btn-dark  btn-lg " })
+                        </div>
+                        <div class="col-1"></div>
+                        <div>
+                            <input type="submit" value="Asignar"  class="btn btn-primary btn-lg" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </form>
+    <div class="modal fade" id="modal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">SINU</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Esta Seguro que desea realizar la accion sobre el postulante, esto interrumpira el proceso de inscripcion<br />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-dark" data-dismiss="modal">Cerrar</button>
+                    @*<button type="submit" class="btn btn-success" value="Postular" name="botonPostular">Confirmar</button>*@
+                    @*@Ajax.ActionLink(" Interrumpir Proceso", "InterrumpirProceso", new { ID_persona = Model.ID_PER }, new AjaxOptions
+                        {
+                          HttpMethod = "POST",
+                          OnSuccess = "Exito(data,status,xhr)",
+                          OnFailure = "Falla"
+                        }, new { @id = "BTValidar", @class = "btn btn-success" })*@
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @*<script src="~/Scripts/jquery.js"></script>*@
+    <script src="~/Scripts/jquery.datetimepicker.full.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $(".table-filters").DataTable({
+
+                responsive: true,
+                "language":
+                {
+                    "sProcessing": "Procesando...",
+                    "sLengthMenu": "Mostrar _MENU_ registros",
+                    "sZeroRecords": "No se encontraron resultados",
+                    "sEmptyTable": "Ningún dato disponible en esta tabla",
+                    "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                    "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                    "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                    "sInfoPostFix": "",
+                    "sSearch": "Buscar:",
+                    "sUrl": "",
+                    "sInfoThousands": ",",
+                    "sLoadingRecords": "Cargando...",
+                    "oPaginate": {
+                        "sFirst": "Primero",
+                        "sLast": "Último",
+                        "sNext": "Siguiente",
+                        "sPrevious": "Anterior"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                    }
+                },
+                "columnDefs": [{
+                    "targets": 'no-sort',
+                    "orderable": false
+                },
+                {
+                    "targets": 'ni-o-ni-bu',
+                    "searchable": false,
+                    "orderable": false
+                }]
+
+            });
+              jQuery('#datetimepicker').datetimepicker({
+                minDate: 0,
+                format: 'd/m/y H:m',
+               
+            });
+            $.datetimepicker.setLocale('es')
+
+            var model = '@Html.Raw(Model.DatosLugar)';
+            var jsonDatosDelegacion = JSON.parse(model);
+            $("#LugarExamen").on("change", function () {
+                if ($(this).val() != "") {
+                    var value = $(this).val();  
+                    var DeleOfi = "";
+                    $.each(jsonDatosDelegacion, function (index, item) {
+                        DeleOfi = (item[0] == value) ? item : DeleOfi;
+                        if (DeleOfi != "") {
+                            return false;
+                        }
+                    });
+                    $("#Direccion b").text(DeleOfi[1]);
+                    $("#Telefono b").text(DeleOfi[2]);
+                    $("#Celular b").text(DeleOfi[3] == "" ? "-------" : DeleOfi[3]);
+                    $("#DatosDelegacion").removeAttr("hidden");
+                } else {
+                    $("#DatosDelegacion").attr("hidden", true);
+                }
+            });
+
+            $('#BeginFormAsignarFechaVarios').on('submit', function () {
+                Return = true;
+                if (jQuery('#LugarExamen').val() == '') {
+                    $("#AvisoLugar").removeAttr('hidden');
+                    Return= false;
+                };
+               
+                if (jQuery('#datetimepicker').val() == '') {
+                    $("#AvisoFecha").removeAttr('hidden');
+                    Return= false;
+                };
+                return Return;
+            });
+
+        });
+        function Exito(data,status,xhr) {
+            if (data.success) {
+                location.reload(true);
+            }
+            if (data.success == false) {
+                //$("#modal3").modal('show');
+                $.Anuncio(data.msg);
+            }
+            //$.Anuncion(Response.msg)
+        }
+    </script>
+}

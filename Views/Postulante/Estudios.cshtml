@@ -1,0 +1,75 @@
+﻿@model  SINU.ViewModels.EstudiosVM
+
+@*@{
+    ViewBag.Title = "Estudios";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}*@
+
+<h2>Estudios</h2>
+<div class="form-group" id="divTABLE">
+
+    <table id="TablaEstudio" data-CUD="EstudiosCUD" data-URL="Estudios" data-ELI="EliminaEST"  data-Controller="Postulante" class="table table-striped table-bordered dt-responsive nowrap" width="100%">
+        @*<table id="example" class="display" cellspacing="0" width="100%">*@
+        <thead>
+            <tr>
+                @* SE COMENTAN LAS COLUMNAS PARA MOSTRAR LA INFOMRACION MAS SOBRESALIENTE DE CADA REGISTRO *@
+                <th hidden>IdEstudio</th>
+                <th hidden>IdPersona</th>
+                <th>@Html.DisplayNameFor(m => m.vPersona_EstudioListVM[0].Nivel)</th>
+                @* <th>@Html.DisplayNameFor(m => m.vPersona_EstudioListVM[-1].Titulo)</th>*@
+                <th class="oculto">@Html.DisplayNameFor(m => m.vPersona_EstudioListVM[0].Nombre)</th>
+                @*<th>@Html.DisplayNameFor(m => m.vPersona_EstudioListVM[-1].Promedio)</th>*@
+                <th class="oculto">@Html.DisplayNameFor(m => m.vPersona_EstudioListVM[0].Completo)</th>
+                <th>
+                    Opciones
+                </th>
+            </tr>
+        </thead>
+        <tbody class="position-static">
+
+            @foreach (var item in Model.vPersona_EstudioListVM)
+            {
+            <tr>
+                <td hidden>@Html.DisplayFor(modelItem => item.IdEstudio)</td>
+                <td hidden>@Html.DisplayFor(modelItem => item.IdPersona)</td>
+                <td style="max-width:5rem">@Html.DisplayFor(modelItem => item.Nivel)</td>
+
+                @*<td>@Html.DisplayFor(modelItem => item.Titulo)</td>*@
+                <td class="truncate oculto">@Html.DisplayFor(modelItem => item.Nombre)</td>
+                @*<td>@Html.DisplayFor(modelItem => item.Promedio)</td>*@
+                <td class="oculto">@Html.Label(item.Completo ? "Si" : "No")</td>
+                <td class="row justify-content-center align-items-center">
+                    <div class="BTMuestraTable">
+                        <button class="Edita btn btn-success fas fa-edit" data-ID="@item.IdEstudio"></button>
+                    </div>  
+                    <div class="BTAcciones d-inline">
+                        &ensp; |&ensp;
+
+                        @Ajax.ActionLink(" ", "EliminaEST", new { IdPersona = item.IdPersona, IDEstudio = item.IdEstudio }, new AjaxOptions
+                   {
+                       HttpMethod = "POST",
+                       OnSuccess = "Exito(data,status,xhr)",
+                       OnFailure = "Falla",
+                   }, new { @id = "EliminaEST", @class = "btn btn-danger fas fa-trash-alt" })
+                    </div>
+                </td>
+            </tr>
+
+        }
+            </tbody>
+
+        </table>
+    <div class="BTAcciones">
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary Nuevo_REG " data-IdTabla="TablaEstudio">
+            Agregar
+        </button>
+    </div>
+
+    </div>
+<script type="text/javascript">
+   //SelectTabla(tabla, ID){
+   //     alert(this.attr("ID" + "   " + ID));
+   // };
+</script>
+

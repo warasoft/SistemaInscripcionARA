@@ -1,0 +1,13 @@
+﻿@model  IEnumerable<SINU.Models.vDataProblemaEncontrado>
+
+<div class="jumbotron problemapantalla mb-0" style="background-color: #08495f;color: white;padding-top: 2rem;padding-bottom: 2rem">
+    <h5><u>Problemas Econtrados:</u></h5>
+    @{int cont = 0; }
+    @foreach (var item in Model)
+    {
+        cont++;
+        <h6><b>@Html.Label(cont.ToString()):</b> @item.DataVerificacion, @item.Comentario</h6>
+    }
+
+</div>
+<br />

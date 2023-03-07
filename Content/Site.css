@@ -1,0 +1,187 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+.jumbotronP {
+    padding: 2rem 1rem;
+    margin-bottom: 2rem;
+    background-color: #95D2E4;
+    border-radius: 0.3rem;
+}
+
+@media (min-width: 576px) {
+    .jumbotronP {
+        padding: 4rem 2rem;
+    }
+}
+
+.jumbotronP-fluid {
+    padding-right: 0;
+    padding-left: 0;
+    border-radius: 0;
+}
+.font-jumb {
+    color: #FFFFFF;
+}
+
+/*TABLA RESPONSIVE: STACKTABLE*/
+.stacktable1 {
+    width: 100%;
+}
+
+.st-head-row {
+    padding-top: 1em;
+}
+
+    .st-head-row.st-head-row-main {
+        font-size: 1.5em;
+        padding-top: 0;
+    }
+
+.st-key {
+    width: 49%;
+    text-align: right;
+    padding-right: 1%;
+}
+
+.st-val {
+    width: 49%;
+    padding-left: 1%;
+}
+
+/*ajusta ancho de los dropdown con la clase selectpicker*/
+ /*{
+    max-width: 280px !important;
+}*/
+input, select, textarea ,.bootstrap-select{
+    max-width: 350px;
+}
+
+
+
+
+
+/*RESPONSIVE EXAMPLE */
+
+.stacktable1.large-only {
+    display: table;
+}
+
+.stacktable1.small-only {
+    display: none;
+}
+
+@media (max-width: 800px) {
+    .stacktable1.large-only {
+        display: none;
+    }
+
+    .stacktable1.small-only {
+        display: table;
+    }
+}
+    /*FIN DE LO NECSARIO STACKTABLE-------------------------------*/
+.truncate {
+    max-width: 120px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.dataTables_processing {
+    z-index: 1050 !important;
+}
+
+.btn-group, .btn-group-vertical {
+    display:inline-table !important;
+}
+div.dataTables_wrapper div.dataTables_info {
+    white-space: break-spaces !important;
+}
+
+div.dataTables_wrapper div.dataTables_paginate ul.pagination {
+   justify-content: center !important;
+}
+
+@media (min-width: 1200px) {
+    .container {
+        max-width: 1400px !important;
+    }
+}
+
+
+.custom-file-input ~ .custom-file-label::after {
+    content: "Elegir";
+}
+
+button[role="combobox"] {
+    border: 1px solid #ced4da !important;
+}
+
+
+div.bs-actionsbox button {
+border: 1px solid #d9d9d9;
+padding-left: 0.3em !important;
+background-color: lightblue;
+}
+
+.bootstrap-select .dropdown-menu li {
+    border-bottom: 1px solid #ced4da8f
+}
+
+table.dataTable.nowrap th, table.dataTable.nowrap td, .dropdown-item {
+    white-space: normal !important;
+}
+
+/*.boto {
+    border-top: 1px none #fff !important;
+    border-left: 1px none #fff !important;
+    border-right: 1px none #fff !important;
+    border-bottom: 1px solid #ced4da8f !important;
+}*/
+
+button[disabled="disabled"].dropdown-toggle, button.dropdown-toggle {
+    opacity: 100 !important;
+    color: black;
+    font-weight: 350 !important;
+    background-color: #e9ecef;
+    opacity: 1;
+}
+
+button[disabled="disabled"].dropdown-toggle::after {
+    border-top: none !important;
+}
+#TabGeneral ul {
+    margin-top: revert !important
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type="number"] {
+    -moz-appearance: textfield;
+}

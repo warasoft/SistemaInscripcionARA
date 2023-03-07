@@ -1,0 +1,154 @@
+﻿@model SINU.Models.vEntrevistaLugarFechaUltInscripc
+<link rel="stylesheet" type="text/css" href="~/Content/jquery.datetimepicker.css" />
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <h4 class="font-weight-bold" style="text-align:center">@(Model.FechaEntrevista!=null?"Reasignar fecha de Entrevista":"Asignar fecha de Entrevista")</h4>
+
+    <div class="card" style=" text-align: -webkit-center;">
+        <div class=" card-header">
+            <h5 class="font-weight-bold" style="text-align:left"><u>N° de pre-inscripcion:@Model.IdInscripcion</u></h5>
+        </div>
+        <div class="card-body">
+            @Html.HiddenFor(m => m.IdPersona)
+            @Html.HiddenFor(m => m.IdInscripcion)
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    @Html.LabelFor(model => model.Apellido, htmlAttributes: new { @class = "control-label col-md-12" })
+                    <div class="col">
+                        @Html.EditorFor(model => model.Apellido, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+                        @Html.ValidationMessageFor(model => model.Apellido, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group col-md-6">
+                    @Html.LabelFor(model => model.Nombres, htmlAttributes: new { @class = "control-label col-md-12" })
+                    <div class="col">
+                        @Html.EditorFor(model => model.Nombres, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+                        @Html.ValidationMessageFor(model => model.Nombres, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-12" })
+                    <div class="col">
+                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                @* Campo para asignar la fecha*@
+                <div class="form-group col-md-6">
+                    @Html.LabelFor(model => model.Celular, htmlAttributes: new { @class = "control-label col-md-12" })
+                    <div class="col">
+                        @Html.EditorFor(model => model.Celular, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+                        @Html.ValidationMessageFor(model => model.Celular, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    @Html.LabelFor(model => model.Telefono, htmlAttributes: new { @class = "control-label col-md-12" })
+                    <div class="col">
+                        @Html.EditorFor(model => model.Telefono, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+                        @Html.ValidationMessageFor(model => model.Telefono, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+            <hr />
+            <div class="form-row">
+                <div class="form-grop col-md-6">
+                    @* Campo para asignar la fecha*@
+                    @Html.Label("Fecha de Entrevista", htmlAttributes: new { @class = "control-label col-md-12" })
+                    <div class="col">
+                        @*<input type="text" class="form-control" id="datetimepicker" name="FechaEntrevista" readonly />*@
+                        @Html.ValidationMessageFor(model => model.FechaEntrevista, "", new { @class = "text-danger", @id = "Aviso" })
+                        @Html.TextBoxFor(model => model.FechaEntrevista,"{0:dd/MM/yyyy HH:mm }", new { @class = "form-control  text-center", @id = "datetimepicker", @readonly = true })
+
+                    </div>
+                </div>
+
+                <div class="col-md-6" id="AvisoFecha" hidden>
+                    <div class="alert alert-danger mt-4">
+                        <h6 class="font-weight-bold">Asigne una fecha de Entrevista al Postulante</h6>
+                    </div>
+                </div>
+            </div>
+        </div><!--Termina la card Body-->
+        <div class="card-footer">
+            <div class="form-row">
+
+                <div class="col-md-9">
+                    @*este div lo utilizo para poder poner los botones para el lado derecho*@
+                </div>
+                <div class="col-md-1">
+                    @Html.ActionLink("Cerrar", "Index", null, new { @class = "btn btn-dark btn-block m-1 p-1" })
+                </div>
+                <div class="col-md-2">
+                    <p type="button" class="btn btn-success d btn-block m-1 p-1" onclick="Mifuncion()">@(Model.FechaEntrevista != null ? "Reasignar fecha" : "Asignar fecha")</p>
+                </div>
+
+            </div>
+        </div>
+    </div><!--Termina la clase de card-->
+
+    <!-- Modal -->
+    <div class="modal fade" id="ModalConfirmar" tabindex="-1" role="dialog" aria-labelledby="ModalConfirmarLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="ModalConfirmarLabel">SINU</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Esta Seguro que desea realizar la accion sobre el postulante<br />
+                    @Model.Apellido @Model.Nombres
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-dark" data-dismiss="modal">Cerrar</button>
+                    @*<button type="button" class="btn btn-primary">Save changes</button>*@
+                    <input type="submit" value="Asignar Fecha" class="btn btn-success" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @*<script src="~/Scripts/jquery.js"></script>*@
+    <script src="~/Scripts/jquery.datetimepicker.full.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            jQuery('#datetimepicker').datetimepicker({
+                minDate: 0,
+                format: 'd/m/y H:m',
+                value: 'd/m/y H:m',
+          
+            }).val('@Model.FechaEntrevista');
+            $.datetimepicker.setLocale('es')
+            //$(".datepicker").datepicker({
+            //    format: "dd/mm/yyyy",
+            //    language: "es",
+            //    autoclose: true,
+            //    startView: "days",
+            //    startDate: "Today"
+            //});
+        });
+        function Mifuncion() {
+            var picker = document.getElementById("datetimepicker").value
+            if (picker != "") {
+                $('#ModalConfirmar').modal('show')
+            } else { 
+                $('#AvisoFecha').removeAttr('hidden')
+            };
+        };
+    </script>
+
+}

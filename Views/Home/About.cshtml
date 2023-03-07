@@ -1,0 +1,60 @@
+﻿<!-- xxxxxxxxxxxx Debo indicar el TITLE de la pantalla y el MENUPERFIL correspondiente en todas las pantallas xxxxxxxxxxxxxx -->
+@{
+    ViewBag.Title = "Acerca de SINU";
+
+    ViewBag.Menu = SINU.Models.Func.CorrespondeMenu();
+}
+@*@section MenuPerfil{
+        @Html.Partial((String)@ViewBag.Menu);
+    }*@
+<!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx  -->
+@*<h1>@ViewBag.Title.</h1>*@
+<body>
+    <div class="row">
+        <div class="col-md-6 text-center">
+            <div class="text-center">
+                <img src="~/Imagenes/LogoARA.jpg" class="text-center" alt="Ancla Armada Argentina" />
+            </div>
+        </div>
+        <div class="col col-md-6 text-justify">
+            <br />
+            <table style="height:100%">
+                <tbody>
+                    <tr>
+                        <td class="align-middle">
+                            <h2 class="text-center"> SINU - Sistema de Inscripcion Unificado</h2><br />
+                            <p class="h5 align-text-bottom">
+                                El sistema denominado SINU (Sistema de Inscripción Unificado), es una plataforma web que brinda al ciudadano, la posbilidad de efectuar On-line los tramites iniciales para la inscripcion a la Armada Argentina en sus diversas modalidades de ingreso, generando durante el proceso, un vinculo via internet entre el postulante y la Delegacion Naval
+                            </p>
+                            @*<p class="h5 align-text-bottom">
+                                    iniciales para la inscripcion a la Armada Argentina en sus diversas modalidades de ingreso, generando durante el proceso, un vinculo via internet entre el postulante y la Delegacion Naval
+                                </p>*@
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <p class="h4 font-weight-bold">Equipo de desarrollo</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 text-center">
+            <p class="h5 font-weight-bold">Lider de proyecto:</p>
+            <p>TNCPIN Rigonatto Sebastian E.</p>
+            <p>AGCV Ottino Laura</p>
+        </div>
+        <div class="col-md-6 text-center">
+            <p class="h5 font-weight-bold">Desarrolladores:</p>
+            <p>CPIN Alvarez Ismael Pablo</p>
+            <p>CPIN Morales Johanna Raquel</p>
+            <p>CSIN Velasquez Emanuel</p>
+            <p>CSIN Cayampi Cisneros Exequiel</p>
+            <p>AGCV Van Houten German</p>
+        </div>
+    </div>
+</body>
+

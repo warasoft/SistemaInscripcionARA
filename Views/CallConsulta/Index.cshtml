@@ -1,0 +1,577 @@
+﻿@model SINU.ViewModels.IndexConsultorModel
+
+@using SINU.Models;
+
+@{
+    ViewBag.Title = "CONSULTOR:";
+
+    //List<ConsultaProgramada> Consulta = (new SINUEntities()).ConsultaProgramada.OrderBy(m => m.OrdenConsulta).ToList();
+    string referencia = "";
+    String activar = "";
+}
+
+<h2>@ViewBag.Title</h2>
+<style>
+    #divContent {
+        position: absolute;
+        top: 40%;
+        left: 50%;
+        width: 200px;
+        margin-left: -100px;
+        margin-top: -26px;
+        text-align: center;
+        padding: 1em 0
+    }
+    li.nav-item a {
+        color: black !important;
+    }
+
+        li.nav-item a.active {
+            /*background-color: #6c757d !important;*/
+            background-color: #346691 !important;
+            color: white !important;
+        }
+
+    .dataTables_length {
+        float: left !important;
+    }
+
+    .dataTables_processing {
+        z-index: 1050 !important;
+    }
+
+    .disabled {
+        pointer-events: none !important;
+    }
+    .dropdown-header span {
+        font-weight: bold;
+        font-size: initial;
+    }
+ 
+</style>
+<br />
+<div class="container p-0 ">
+    <div class="row">
+
+
+        <nav class="col-md-2 mr-3 navbar navbar1 navbar-expand-md  navbar-light ml-3 pl-2 oculto" style="display: block !important;">
+
+            <!-- Navbar links -->
+            <div class="collapse navbar-collapse" id="TABDocumentacion">
+                <ul class="nav nav-tabs nav-pills with-arrow lined  flex-sm-row text-left" id="myTab" role="tablist" style="border-bottom: 0px solid;">
+                    <li class="nav-item flex-md-fill bli">
+                        <a class="nav-link font-weight-bold rounded-0 @(((Int32)ViewBag.ActivarId) == 9 ? " active " : "") atab" data-toggle="tab" href="#Consulta9" role="tab" aria-controls="XXXXX" aria-selected="false" style="text-transform: capitalize !important;">
+                            Todos Los Postulantes
+                        </a>
+                    </li>
+
+                    @foreach (var item in Model.ConsultaProgramadaVm)
+                    {
+                        referencia = "#Consulta" + item.IdConsulta.ToString();
+                        activar = ((Int32)ViewBag.ActivarId) == item.IdConsulta ? " active " : "";
+                        <li class="nav-item flex-md-fill bli">
+                            <a class="nav-link font-weight-bold rounded-0 @activar atab" data-toggle="tab" href="@referencia" role="tab" aria-controls="XXXXX" aria-selected="false" style="text-transform: capitalize !important;">
+                                @item.NombreMenu
+                            </a>
+                        </li>
+                    }
+
+                </ul>
+            </div>
+        </nav>
+
+
+        <div class="col-md-9 borderdiv1">
+            <div class="tab-content TABMovil" id="TabDocumentacion">
+                <div class="pos-f-t collapse tab-pane fade @(((Int32)ViewBag.ActivarId) == 9 ? "show active " : "") tab-nav" id="Consulta9">
+                    <!--TABLA DE TOTAL DE POSTULANTES A REVISAR-->
+                    <div id="opcionesExtrasDT1">
+                        <div class="col-md-4 col-sm-12 mb-2 p-0 text-center pt-1">
+                            <div class="col-md-12">
+                                <label>Etapa: <b id="ETAPA">----</b></label>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-12 mb-2 p-0">
+                            <div class="col-md-12">
+                                    @Html.DropDownList("EstadosEtapasPost", Model.EstadosEtapas, "Seleccione Etapa/Estado", new { @class = "form-control selectpicker" })
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-12 mb-2 p-0">
+
+                            <div class="col-md-12">
+                                <button class="btn btn-dark form-control" onclick="limpiar()">Limpiar filtros</button>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <table class="table table-filters table-bordered table-light table-hover ajaxTabla" id="PostulanteConsultor" style="width:100%">
+                        <thead class="thead-dark">
+                            <tr>
+                                <!--Encabezados generados dinamicamente-->
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="text-center">Ningún dato disponible en esta tabla</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+                    @foreach (var item in Model.ConsultaProgramadaVm)
+                    {
+                        referencia = "Consulta" + item.IdConsulta.ToString();
+                        activar = ((Int32)ViewBag.ActivarId) == item.IdConsulta ? "show active" : "";
+
+                        <div class="pos-f-t collapse tab-pane fade  tab-nav justify-content-center align-content-center h-100 w-100 @activar" id="@referencia">
+                            <div id="divContent">
+                                <span class='fa-stack fa-lg'><i class='fa fa-spinner fa-spin fa-stack-2x fa-fw'></i></span>&nbsp;&nbsp;&nbsp;&nbsp;Cargando...
+                            </div>
+                            @*@Html.Action(item.Action, item.Controller, null)*@
+                        </div>
+                    }
+
+                </div>
+            </div>
+        <!-- /.col-md-8 -->
+    </div>
+</div>
+
+@section Scripts{
+    <script type="text/javascript">
+
+        var vistas =  @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.ConsultaProgramadaVm, Newtonsoft.Json.Formatting.Indented));
+
+        $.each(vistas, async function (index, item) {
+
+            $(`#Consulta${item.IdConsulta}`).delay(800).load(`\\${item.Controller}\\${item.Action}`, function () {
+
+                $(`#Consulta${item.IdConsulta} table.table-filters`).not(".ajaxTabla").DataTable({
+                    'dom': 'Bfrtlpi',
+                    buttons: [
+                        {
+                            extend: 'copyHtml5',
+                            text: 'Copiar',
+                            exportOptions: {
+                                columns: ':not(.noPrint)'
+                            },
+                            title: "Inscriptos Detalles"
+                        },
+                        {
+                            extend: 'excelHtml5',
+                            exportOptions: {
+                                columns: ':not(.noPrint)'
+                            },
+                            title: "Inscriptos Detalles"
+                        },
+                        {
+                            extend: 'pdfHtml5',
+                            exportOptions: {
+                                columns: ':not(.noPrint)'
+                            },
+                            title: "Inscriptos Detalles"
+                        },
+                        {
+                            extend: 'print',
+                            text: 'Imprimir',
+                            exportOptions: {
+                                columns: ':not(.noPrint)'
+                            },
+                            title: "Inscriptos Detalles",
+                        },
+                    ],
+                    responsive: true,
+                    "language":
+                    {
+                        "sProcessing": "Procesando...",
+                        "sLengthMenu": "Mostrar _MENU_ registros",
+                        "sZeroRecords": "No se encontraron resultados",
+                        "sEmptyTable": "Ningún dato disponible en esta tabla",
+                        "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                        "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                        "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                        "sInfoPostFix": "",
+                        "sSearch": "Buscar:",
+                        "sUrl": "",
+                        "sInfoThousands": ",",
+                        "sLoadingRecords": "Cargando...",
+                        "oPaginate": {
+                            "sFirst": "Primero",
+                            "sLast": "Último",
+                            "sNext": "Siguiente",
+                            "sPrevious": "Anterior"
+                        },
+                        "oAria": {
+                            "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                            "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                        }
+                    },
+                    "columnDefs": [{
+                        "targets": 'no-sort',
+                        "orderable": false
+                    },
+                    {
+                        "targets": 'ni-o-ni-bu',
+                        "searchable": false,
+                        "orderable": false
+                        }],
+
+                    "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Todos"]]
+
+                });
+            });
+
+        });
+        var dataTabla = {}
+        function getCvsServer(e, dt, button, config) {
+            $(`#PostulanteConsultor_processing`).css('display', 'block')
+            var data = dataTabla;
+            var titulo = 'Inscriptos Detalle'
+            oldLength = data.length
+            data.length = -1
+            recordsTotal = dt.page.info().recordsTotal
+            $.ajax({
+                type: 'POST',
+                url: '/AjaxDataTable/DataTableToCSV',
+                dataType: 'json',
+                data: { model: data, recordsTotal: recordsTotal, titulo: titulo },
+                success: function (data) {
+
+                    var blob = new Blob([`\uFEFF${data.content}`], {
+                        encoding: "UTF-8",
+                        type: "text/csv;charset=utf-8"
+                    });
+                    var blobUrl = window.URL.createObjectURL(blob);
+
+                    //console.log(blob);
+                    //console.log(blobUrl);
+
+                    //ie (naturally) does things differently
+                    var csvLink = document.createElement("a");
+                    if (!window.navigator.msSaveOrOpenBlob) {
+                        csvLink.href = blobUrl;
+                        csvLink.download = data.nameFile;
+                    }
+                    csvLink.click()
+                    $(`#PostulanteConsultor_processing`).css('display', 'none')
+                },
+                error: function (ex) {
+                    alert('ERROR, actualice la pagina.')
+                }
+            })
+
+
+        }
+
+
+        columns = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Columnas, Newtonsoft.Json.Formatting.Indented));
+        columns[11].className = 'truncate';
+
+        columns.push({
+            data: "Opciones", searchable: false, orderable: false, title: 'Opciones', className: 'noPrint', render: function (data, type, row) {
+                return `<div class="d-flex justify-content-around"><a class='mr-1 btn btn-info fas fa-bars load-submit' href='/Postulante?ID_Postulante=${row.IdPostulantePersona}'  data-toggle='tooltip' data-placement='top' title='Detalles'></a></div>`;
+            }
+        });
+
+        //filtro por defecto
+        filtroInicial = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.filtrosExtras, Newtonsoft.Json.Formatting.Indented));
+
+        var input_filter_value;
+        var input_filter_timeout = null;
+        primerCarga = true;
+            //tabla
+        var table = $('#PostulanteConsultor').DataTable({
+            "serverSide": true,
+            "processing": true,
+            searchDelay: 900,
+
+            "ajax": {
+                url: "@Url.Action("CustomServerSideSearchActionAsync", "AjaxDataTable")",
+                type: "POST",
+                //async: false,
+                data: function (data) {
+                    if (primerCarga) {
+                        primerCarga = false;
+                        data.search.value = sessionStorage.searchTablaDelPost;
+                    };
+
+                    sessionStorage.searchTablaDelPost == undefined ? sessionStorage.searchTablaDelPost = "" : null;
+                    sessionStorage.EtapasPost == undefined ? sessionStorage.EtapasPost = "" : null;
+                    sessionStorage.EstadosPost == undefined ? sessionStorage.EstadosPost = "" : null;
+
+                    data.filtrosExtras = [
+                        {
+                            Columna: "Etapa",
+                            Valor: sessionStorage.EtapasPost
+                        },
+                        {
+                            Text: "EstadoEtapa",
+                            Value: sessionStorage.EstadosPost
+                        }];
+                    $.each(filtroInicial, function (index,item) {
+                        data.filtrosExtras.push(item);
+                    })
+
+                    data.tablaVista = '@Model.TablaVista';
+
+                    data.columns.pop()
+                    dataTabla=data
+                },
+                //dataSrc: function (json) {
+
+                //    return json.data;
+                //}
+            },
+            "deferRender": true,
+
+            dom: '<"container row justify-content-center m-0"<"col-12 mb-2"B><"col-md-6 col-sm-12"l><"col-md-6 col-sm-12"f><"opcionesExtrasDT2 container  row mt-1">>r<"col-sm-12"t><"container row  d-flex"<"col-md-6 col-sm-12"i><"col-md-6 col-sm-12"p>>',
+
+            "language":
+            {
+                "sProcessing": "<span class='fa-stack fa-lg'>\n\<i class='fa fa-spinner fa-spin fa-stack-2x fa-fw'></i>\n\</span>&nbsp;&nbsp;&nbsp;&nbsp;Cargando...",
+                "sLengthMenu": "Mostrar _MENU_ registros",
+                "sZeroRecords": "No se encontraron resultados",
+                "sEmptyTable": "Ningún dato disponible en esta tabla",
+                "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                "sInfoPostFix": "",
+                "sSearch": "Buscar:",
+                "sUrl": "",
+                "sInfoThousands": ",",
+                "sLoadingRecords": "Cargando...",
+                "oPaginate": {
+                    "sFirst": "Primero",
+                    "sLast": "Último",
+                    "sNext": "Siguiente",
+                    "sPrevious": "Anterior"
+                },
+                "oAria": {
+                    "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                }
+            },
+            buttons: [
+                {
+                    extend: 'copyHtml5',
+                    text: 'Copiar',
+                    exportOptions: {
+                        columns: ':not(.noPrint)'
+                    },
+                    title: "Inscriptos Detalles",
+                    //action: newexportaction
+
+                },
+                {
+                    extend: 'excelHtml5',
+                    exportOptions: {
+                        columns: ':not(.noPrint)'
+                    },
+                    title: "Inscriptos Detalles",
+                    //action: newexportaction
+
+                },
+                {
+                    extend: 'pdfHtml5',
+                    exportOptions: {
+                        columns: ':not(.noPrint)'
+                    },
+                    title: "Inscriptos Detalles",
+                    orientation: 'landscape',
+                    pageSize:'LEGAL'
+                //    action: newexportaction
+                },
+                {
+                    extend: 'print',
+                    text: 'Imprimir',
+                    exportOptions: {
+                        columns: ':not(.noPrint)'
+                    },
+                    title: "Inscriptos Detalles",
+                //    action: newexportaction
+                },
+                {
+                    extend: 'csv',
+                    text: 'Csv - Todos',
+                    exportOptions: {
+                        columns: ':not(.noPrint)'
+                    },
+                    title: "Inscriptos Detalles",
+                    action: getCvsServer
+                }
+            ],
+            "columns":columns,
+            "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Todos"]],
+            responsive: true,
+
+        }).on('processing.dt', function (e, settings, processing) {
+            if (processing) {
+                $(".dataTables_wrapper").addClass("disabled");
+            } else {
+                $(".dataTables_wrapper").removeClass("disabled");
+            }
+
+        });
+
+        function limpiar() {
+                sessionStorage.EtapasPost = "";
+            sessionStorage.EstadosPost = "";
+            $("#EstadosPost").find("optgroup").removeAttr("hidden");
+             $("#ETAPA").html("---")
+            $("select.selectpicker").val("").selectpicker("refresh");
+
+            table.search("").ajax.reload();
+        };
+
+
+        $("div.dataTables_filter input").unbind();
+        $("div.dataTables_filter input").keyup(function (e) {
+            input_filter_value = this.value;
+            clearTimeout(input_filter_timeout);
+            input_filter_timeout = setTimeout(function () {
+                table.search(input_filter_value).draw();
+            }, table.context[0].searchDelay);
+
+        });
+
+        @*var vistas =  @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.ConsultaProgramadaVm, Newtonsoft.Json.Formatting.Indented));
+
+        $.each(vistas, async function (index, item) {
+
+            $(`#Consulta${item.IdConsulta}`).delay(800).load(`\\${item.Controller}\\${item.Action}`, function () {
+
+                $(`#Consulta${item.IdConsulta} table.table-filters`).not(".ajaxTabla").DataTable({
+                    'dom': 'Bfrtlpi',
+                    buttons: [
+                        {
+                            extend: 'copyHtml5',
+                            text: 'Copiar',
+                            exportOptions: {
+                                columns: ':not(.noPrint)'
+                            },
+                            title: "Inscriptos Detalles"
+                        },
+                        {
+                            extend: 'excelHtml5',
+                            exportOptions: {
+                                columns: ':not(.noPrint)'
+                            },
+                            title: "Inscriptos Detalles"
+                        },
+                        {
+                            extend: 'pdfHtml5',
+                            exportOptions: {
+                                columns: ':not(.noPrint)'
+                            },
+                            title: "Inscriptos Detalles"
+                        },
+                        {
+                            extend: 'print',
+                            text: 'Imprimir',
+                            exportOptions: {
+                                columns: ':not(.noPrint)'
+                            },
+                            title: "Inscriptos Detalles",
+                        },
+                    ],
+                    responsive: true,
+                    "language":
+                    {
+                        "sProcessing": "Procesando...",
+                        "sLengthMenu": "Mostrar _MENU_ registros",
+                        "sZeroRecords": "No se encontraron resultados",
+                        "sEmptyTable": "Ningún dato disponible en esta tabla",
+                        "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                        "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                        "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                        "sInfoPostFix": "",
+                        "sSearch": "Buscar:",
+                        "sUrl": "",
+                        "sInfoThousands": ",",
+                        "sLoadingRecords": "Cargando...",
+                        "oPaginate": {
+                            "sFirst": "Primero",
+                            "sLast": "Último",
+                            "sNext": "Siguiente",
+                            "sPrevious": "Anterior"
+                        },
+                        "oAria": {
+                            "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                            "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                        }
+                    },
+                    "columnDefs": [{
+                        "targets": 'no-sort',
+                        "orderable": false
+                    },
+                    {
+                        "targets": 'ni-o-ni-bu',
+                        "searchable": false,
+                        "orderable": false
+                        }],
+
+                    "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Todos"]]
+
+                });
+            });
+
+        });*@
+
+        $(document).ready(function () {
+
+            $("table thead tr th").last().width(100);
+
+            $("button div div div.filter-option-inner-inner").css("color", "black");
+
+            $('#PostulanteConsultor[data-toggle="tooltip"]').tooltip("enable")
+            jQuery("#opcionesExtrasDT1 div.mb-2")
+                .detach()
+                .appendTo('.opcionesExtrasDT2')
+
+            $("#le-filters_filter label")
+                .addClass("float-md-right")
+                .children("input")
+                .removeClass("form-control-sm").addClass("form-control")
+                .css("width", "225px")
+                .attr("placeholder", "dni, nombre, apellido, email")
+
+            $("[name='le-filters_length']").css({"width": "180px", "font-size":"100%"}).removeClass("form-control-sm")
+
+
+
+            $("#EstadosEtapasPost").find(`optgroup[label="${sessionStorage.EtapasPost}"]`).find(`option[value="${sessionStorage.EstadosPost}"]`).attr("selected", true);
+            $("#EstadosEtapasPost").selectpicker("refresh");
+            $("#ETAPA").html(sessionStorage.EtapasPost== undefined || sessionStorage.EtapasPost==""?"---":sessionStorage.EtapasPost);
+
+            //se aplicael selecpicker a alos conbo/s con autocomplete con la opcion de busqueda
+
+
+            //establesco parametro de busqueda para al almacenamineto en el lado del cliente
+            table.on('search.dt', function () {
+                sessionStorage.searchTablaDelPost = table.search();
+            });
+
+            //esatblesco en el input la ultima busqueda realizada
+            table.on('draw', function () {
+
+                table.search(sessionStorage.searchTablaDelPost);
+            });
+
+            //guarda las seleciones de los combos
+            $("#EstadosEtapasPost").on("change", function () {
+                if ($(this).val()==null) {
+                    alert("null")
+                }
+                sessionStorage.EtapasPost = $(this).find("option:selected").closest("optgroup").prop("label");
+                $("#ETAPA").html(sessionStorage.EtapasPost== undefined ?"---":$(this).find("option:selected").closest("optgroup").prop("label"))
+                sessionStorage.EstadosPost= $(this).val()
+                table.search(sessionStorage.searchTablaDelPost).ajax.reload();
+
+            });
+
+
+
+
+        });
+    </script>
+    }

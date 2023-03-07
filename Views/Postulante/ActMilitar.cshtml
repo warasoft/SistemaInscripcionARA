@@ -1,0 +1,77 @@
+﻿@model  IEnumerable<SINU.Models.vPersona_ActividadMilitar>
+
+@*@{
+    ViewBag.Title = "Idiomas";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}*@
+
+
+<h2>Actividad militar</h2>
+
+<div class="form-group" id="divTABLE">
+
+    <table id="TablaActMilitar" data-CUD="ActMilitarCUD" data-URL="ActMilitar" data-ELI="EliminaACT"  data-Controller="Postulante" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
+        <thead>
+            <tr>
+                <th hidden>IdActividadMilitar</th>
+                <th hidden>IDPersona</th>
+                <th>@Html.DisplayNameFor(m => m.Fuerza)</th>
+                <th class="oculto">@Html.DisplayNameFor(m => m.Ingreso)</th>
+                <th>
+                    Opciones
+                </th>
+                @*<th>@Html.DisplayNameFor(m => m.Jerarquia)</th>
+                <th>@Html.DisplayNameFor(m => m.FechaIngreso)</th>
+                <th>@Html.DisplayNameFor(m => m.FechaBaja)</th>*@
+
+            </tr>
+        </thead>
+        <tbody>
+            @{ 
+                bool ninguna = false;
+                if (Model.Count()>0)
+                {
+                    ninguna = Model.First().Fuerza == "NINGUNA";
+                }
+            }
+            @foreach (var item in Model)
+            {
+
+                <tr>
+                    <td hidden>@Html.DisplayFor(modelItem => item.IdActividadMilitar)</td>
+                    <td hidden>@Html.DisplayFor(modelItem => item.IdPersona)</td>
+                    <td class="text-center" colspan="@(ninguna?"100%":"1")">@Html.DisplayFor(modelItem => item.Fuerza)</td>
+                    <td class="oculto @(ninguna?"d-none":"")" >@Html.Label(item.Ingreso != null ? item.Ingreso.Value ? "SI" : "NO" : "--")</td>
+                    <td class="row justify-content-center align-items-center  @(ninguna?"d-none":"")">
+                        <div class="BTMuestraTable">
+                            <button class="Edita btn btn-success fas fa-edit" data-ID="@item.IdActividadMilitar"></button>
+                        </div>
+                        <div class="BTAcciones d-inline">
+                            &ensp; |&ensp;
+                            @Ajax.ActionLink(" ", "EliminaACT", new { IdPersona = item.IdPersona, IDActMil = item.IdActividadMilitar }, new AjaxOptions
+                              {
+                                HttpMethod = "POST",
+                                OnSuccess = "Exito(data,status,xhr)",
+                                OnFailure = "Falla",
+                              }, new { @id = "EliminaACT", @class = "btn btn-danger fas fa-trash-alt" })
+                        </div>
+                    </td>
+                    @*<td >@Html.DisplayFor(modelItem => item.Jerarquia)</td>
+                <td>@Html.DisplayFor(modelItem => item.FechaIngreso)</td>
+                <td>@Html.DisplayFor(modelItem => item.FechaBaja)</td>*@
+                </tr>
+            }
+        </tbody>
+
+    </table>
+
+    <!-- Button trigger modal -->
+    <div class="BTAcciones">
+        <button type="button" class="btn btn-primary Nuevo_REG " data-IdTabla="TablaActMilitar">
+            Agregar
+        </button>
+        @Ajax.ActionLink("Sin actividad militar", "SinActMilitar", new { idper = (int)ViewBag.Id }, new AjaxOptions { HttpMethod = "POST", OnSuccess = "Exito(data,status,xhr)", OnFailure = "Falla", }, new { @class = "btn btn-info",@id="SinACT" })
+
+    </div>
+
+</div>

@@ -1,0 +1,43 @@
+﻿@model SINU.ViewModels.Presentacion
+<h4>Fecha y lugar de Presentación:</h4>
+<div class="jumbotron pl-md-5" style="background-color: #08495f; color:white">
+    <div class="row">
+        <div class="col-md-7">
+            <h5>@Html.DisplayNameFor(m => m.Apellido): <b>@Html.Raw(Model.Apellido).ToString().ToUpper()</b></h5>
+            <h5>@Html.DisplayNameFor(m => m.Nombre): <b>@Html.Raw(Model.Nombre).ToString().ToUpper()</b></h5>
+            <h5>@Html.Label("Numero de Inscripción"): <b>@Html.DisplayFor(m => m.ID_Inscripcion).ToString().ToUpper()</b></h5>
+            <h5>@Html.Label("Fecha de inicio del periodo de inscripcion"): <b>@Html.DisplayFor(m => m.Fecha_Inicio).ToString().ToUpper()</b></h5>
+            <h5>@Html.Label("Fecha de fin del periodo de inscripcion"): <b>@Html.DisplayFor(m => m.Fecha_Fin).ToString().ToUpper()</b></h5>
+            <h5>Modalidad: <b>@Html.DisplayFor(m => m.Modalidad).ToString().ToUpper()</b></h5>
+            <h5>Carrera: <b>@Html.Raw(Model.Carrera)</b></h5>
+            @Html.Hidden("presentacion", ViewBag.Asignado ? true : false)
+            @if (!ViewBag.Asignado)
+            {
+                <h5>Se le informará vía correo cuando le hayan asignado una fecha para la presentación, solicitamos este atento.</h5>
+                <h5>Por consultas comunicarse con la Delegación seleccionada. </h5>
+            }
+            else
+            {
+                <h5>@Html.DisplayNameFor(m => m.FechaPresentacion): <b>@Model.FechaPresentacion.ToString("dd/MM/yyyy 'Hs:' HH:mm")</b></h5>
+                <h5>@Html.DisplayNameFor(m => m.DomicilioExamenNombre): <b>@Html.Raw(Model.DomicilioExamenNombre)</b></h5>
+                <h5>@Html.DisplayNameFor(m => m.DomicilioExamen): <b>@Html.Raw(Model.DomicilioExamen)</b></h5>
+            }
+            <br />
+        </div>
+        <div class="col-md-5 text-center align-content-center">
+            @if (ViewBag.Asignado)
+            {
+            <h6>Escaneé el QR o imprímalo</h6>
+                <br />
+                <img src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(Model.Qr))" width="140" height="140" style="border-radius:3px;border:1px solid black" class="align-items-center" />
+                <hr style="border:0px" />
+                <div id="btpresentacion">
+                    <button onclick="Imprimir()" class="btn btn-success">Imprimir</button>
+                </div>
+
+            }
+        </div>
+    </div>
+
+  
+</div>

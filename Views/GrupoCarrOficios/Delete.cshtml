@@ -1,0 +1,44 @@
+﻿@model SINU.Models.GrupoCarrOficio
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Eliminar Registro</h2>
+
+<div class="alert alert-warning" role="alert">
+    Esta a punto de eliminar un Registro, esta seguro?
+</div>
+<div>
+    @*<h4>GrupoCarrOficio</h4>*@
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Descripcion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Descripcion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Personal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Personal)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Eliminar" class="btn btn-default" /> |
+            @Html.ActionLink("Volver", "Index")
+        </div>
+    }
+</div>

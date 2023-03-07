@@ -1,0 +1,457 @@
+﻿@model IList<SINU.Models.DataTableVM>
+
+<!-- LA PECULIARIDAD DE ESTA VISTA ES QUE LLAMA A LA PARTIALVIEW _LISTADO.CSHTML
+
+    (REGLA DE NOMENCLATURA: TODAS LAS PARTIALVIEW DEBEN COMENZAR CON GUION BAJO EN EL NOMBRE)-->
+<!-- xxxxxxxxxxxx Debo indicar el TITLE de la pantalla y el MENUPERFIL correspondiente en todas las pantallas (COPIAR ESTE BLOQUE) xxxxxxxxxxxxxx -->
+@{
+    ViewBag.Title = "Listado de Inscriptos";
+}
+@*@section MenuPerfil{
+
+        @Html.Partial("_MenuPerfilDeleg")
+    }*@
+<!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx  -->
+<!-- INCORRECTO COLOCAR LOS STYLES AQUI-->
+<style>
+
+
+    input:-internal-autofill-selected {
+        background-color: #f5f5f5 !important
+    }
+
+    .dataTables_filter {
+        display: flex !important;
+    }
+
+    .form-control:disabled, .form-control[readonly] {
+        cursor: no-drop;
+    }
+
+    .text-danger {
+        font-size: 80%;
+    }
+
+
+
+
+    .tab-pane {
+        padding: 1px 0px 0px 0px;
+    }
+
+    #ContieneTabs {
+        box-shadow: 0px 4px 4px 1px #00000036;
+    }
+
+        #ContieneTabs .container {
+            padding-left: 0px !important;
+            padding-right: 0px !important;
+        }
+
+   
+    #TabSecundarioContent nav {
+        background-color: #08495f !important;
+        border-radius: 3px
+    }
+    /*------------------------------------*/
+    .nav .nav-tabs .left-tabs {
+        border-right: 2px solid #08495f
+    }
+
+    .left-tabs.nav-tabs, .right-tabs.nav-tabs {
+        height: 100%;
+        flex-direction: column;
+    }
+
+    .left-tabs.nav-tabs {
+        border-right: 2px solid #08495f;
+        border-bottom: none;
+    }
+
+    .left-tabs .nav-link {
+        border-top-left-radius: 0.3rem;
+        border-bottom-left-radius: 0.3rem;
+        border-bottom-right-radius: 0;
+        border-top-right-radius: 0;
+        margin-right: -2px;
+        text-align: left;
+        border-right: 2px solid #08495f;
+        background-color: #08495f;
+        color: #fff !important;
+        border-bottom: 1px solid #fff;
+        border-top: 1px solid #fff;
+        margin-bottom: 0.3px
+    }
+
+        .left-tabs .nav-link:hover {
+            border-color: #fff;
+            border-right: #fff;
+            background-color: #2b82ad
+        }
+
+        .left-tabs .nav-link.active i {
+            color: #08495f !important;
+        }
+
+        .left-tabs .nav-link.active {
+            border-top: 2px solid #08495f;
+            border-right: 2px solid transparent;
+            border-bottom: 2px solid #08495f;
+            border-left: 8px solid #08495f;
+            background-color: #fff;
+            margin-left: -8px;
+            /*font-size: 1.3rem;*/
+            font-weight: 600;
+            color: #08495f !important;
+        }
+
+    #TABPrincipal p {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !important;
+        font-size: 1rem !important;
+        font-weight: 400 !important;
+        display: inline !important;
+    }
+    /*    OCULTA TEXTO DE TAB EN CASO DE SER MOBIL      */
+    @@media screen and (max-width: 576px) {
+        #ModalEIA .modal-body {
+            overflow: auto;
+            height: 30rem;
+        }
+
+            #ModalEIA .modal-body::-webkit-scrollbar {
+                -webkit-appearance: none;
+            }
+
+                #ModalEIA .modal-body::-webkit-scrollbar:vertical {
+                    width: 10px;
+                }
+
+            #ModalEIA .modal-body::-webkit-scrollbar-button:increment, .modal-body::-webkit-scrollbar-button {
+                display: none;
+            }
+
+            #ModalEIA .modal-body::-webkit-scrollbar:horizontal {
+                height: 10px;
+            }
+
+            #ModalEIA .modal-body::-webkit-scrollbar-thumb {
+                background-color: #797979;
+                border-radius: 20px;
+                border: 2px solid #f1f2f3;
+            }
+
+            #ModalEIA .modal-body::-webkit-scrollbar-track {
+                border-radius: 10px;
+            }
+
+        #TABPrincipal p {
+            display: none !important
+        }
+
+        #TABPrincipal .nav-tabs a.active p,
+        #TABPrincipal .nav-tabs a.active:hover p {
+            display: inline-block !important;
+            margin-bottom: 1px
+        }
+
+        #TABPrincipal .nav-tabs a.active p {
+            font-size: 1rem !important
+        }
+
+        #TabSecundario {
+            display: none !important
+        }
+
+        .tab-nav {
+            display: block !important;
+            opacity: 100 !important
+        }
+
+        .navbar-brand {
+            font-size: 1rem !important
+        }
+
+        #TabSecundarioContent, .nav-tab {
+            padding: 0rem 1rem 0rem 1rem !important;
+        }
+
+        .oculto {
+            display: none !important
+        }
+    }
+
+    @@media screen and (min-width: 576px) {
+        #TabSecundarioContent nav.navbar {
+            display: none !important;
+        }
+
+        div.TABMovil > div.pos-f-t > div.nav-tab > br:first-child {
+            display: none !important;
+        }
+
+        .nav-tab {
+            display: block !important;
+            opacity: 100 !important
+        }
+    }
+    /* nav version mobil*/
+    .navbar-toggler {
+        background: none;
+        border: none;
+    }
+
+        .navbar-toggler:active,
+        .navbar-toggler:focus {
+            outline: 0;
+        }
+
+        .navbar-toggler .icon-bar {
+            display: block;
+            width: 22px;
+            height: 2px;
+            border-radius: 1px;
+            margin: 4px 0 4px 0;
+            transition: all 0.3s;
+        }
+
+    .navbar-dark .navbar-toggler .icon-bar {
+        background: #ffffff;
+    }
+
+    .navbar-toggler .icon-bar:nth-of-type(1) {
+        transform: translate3d(1px,0,0) rotate(-45deg);
+        transform-origin: center center;
+        width: 11px;
+    }
+
+    .navbar-toggler .icon-bar:nth-of-type(2) {
+        transform: rotate(-90deg);
+        transform-origin: center center;
+    }
+
+    .navbar-toggler .icon-bar:nth-of-type(3) {
+        transform: translate3d(0px,-14px,0) rotate(-135deg);
+        transform-origin: right top;
+        width: 11px;
+    }
+
+    .navbar-toggler.collapsed .icon-bar:nth-of-type(1) {
+        transform: translate3d(0,0,0) rotate(0deg);
+        width: 22px;
+    }
+
+    .navbar-toggler.collapsed .icon-bar:nth-of-type(2) {
+        transform: translate3d(0,0,0) rotate(0deg);
+    }
+
+    .navbar-toggler.collapsed .icon-bar:nth-of-type(3) {
+        transform: translate3d(0,0,0) rotate(0deg);
+        width: 22px;
+    }
+
+    .container {
+        padding-left: 5px !important;
+        padding-right: 5px !important
+    }
+
+    #TabSecundario a.TABValida {
+        color: yellow !important;
+        font-size: larger;
+    }
+
+        #TabSecundario a.TABValida.active {
+            color: #08495f !important;
+            font-size: larger;
+        }
+
+
+    #TabSecundario a.active i.adver {
+        color: #08495f !important;
+        font-size: larger;
+        display: block !important;
+    }
+
+    #autoresizing {
+        display: block;
+        overflow: hidden;
+        resize: none;
+        align-content: center;
+    }
+</style>
+<h3 class="text-center">@ViewBag.Delegacion</h3>
+<hr />
+<br />
+
+<div class="container">
+
+    <div class="col-12">
+        <div class="row">
+
+            <div class="col-md-2" id="TabSecundario">
+                <div class="nav nav-tabs left-tabs">
+                    <a class="nav-item nav-link active show" href="#inscriptosTodos" data-toggle="tab">Inscriptos - Todos</a>
+                    <a class="nav-item nav-link" href="#datosBasicos" data-toggle="tab">Datos Basicos</a>
+                    <a class="nav-item nav-link" href="#entrevista" data-toggle="tab">Entrevista</a>
+                    <a class="nav-item nav-link" href="#documentacion" data-toggle="tab">Documentación</a>
+                    <a class="nav-item nav-link" href="#presentacion" data-toggle="tab">Presentación</a>
+                    <br />
+                </div>
+            </div>
+
+            <div class="col-md-10 p-2 pl-sm-4 pr-sm-4" id="TabSecundarioContent">
+                    <div class="tab-content TABMovil">
+
+                        <div class="pos-f-t collapse tab-pane fade show active tab-nav" id="inscriptosTodos">
+                          
+                            <nav class="navbar navbar-dark bg-dark ">
+                                <a class="navbar-brand" href="#">Inscriptos - Todos</a>
+                                <button id="BTinscriptosTodosNAV" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#inscriptosTodosNAV" role="tabpanel" aria-labelledby="DatosPersonalesNAV-tab" aria-controls="DatosPersonalesNAV" aria-expanded="false" aria-label="Toggle navigation">
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </button>
+                            </nav>
+                            <div class="collapse tab-pane fade show active nav-tab pt-0 " id="inscriptosTodosNAV">
+                                <h2 class="d-none d-sm-block text-center ">Inscriptos - Todos</h2>
+                                <br />
+                                @Html.TablaHelper(Model[0].IdTabla, "dark")
+
+                            </div>
+                        </div>  
+                        <div class="pos-f-t collapse tab-pane fade tab-nav" id="datosBasicos">
+                            <nav class="navbar navbar-dark bg-dark ">
+                                <a class="navbar-brand" href="#">Datos Basicos</a>
+                                <button id="BTdatosBasicosNAV" class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#datosBasicosNAV" role="tabpanel" aria-labelledby="DatosPersonalesNAV-tab" aria-controls="DatosPersonalesNAV" aria-expanded="false" aria-label="Toggle navigation">
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </button>
+                            </nav>
+                            <div class="collapse tab-pane fade nav-tab pt-0 " id="datosBasicosNAV">
+                                <h2 class="d-none d-sm-block text-center ">Datos Basicos</h2><br />
+                                @Html.TablaHelper(Model[1].IdTabla, "dark")
+
+                            </div>
+                        </div>
+                        <div class="pos-f-t collapse tab-pane fade tab-nav" id="entrevista">
+                            <nav class="navbar navbar-dark bg-dark ">
+                                <a class="navbar-brand" href="#">Entrevista</a>
+                                <button id="BTentrevistaNAV" class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#entrevistaNAV" role="tabpanel" aria-labelledby="DatosPersonalesNAV-tab" aria-controls="DatosPersonalesNAV" aria-expanded="false" aria-label="Toggle navigation">
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </button>
+                            </nav>
+                            <div class="collapse tab-pane fade nav-tab pt-0 " id="entrevistaNAV">
+                                <h2 class="d-none d-sm-block text-center ">Entrevista</h2><br />
+                                @Html.TablaHelper(Model[2].IdTabla, "dark")
+
+                            </div>
+                        </div>
+                        <div class="pos-f-t collapse tab-pane fade  tab-nav" id="documentacion">
+                            <nav class="navbar navbar-dark bg-dark ">
+                                <a class="navbar-brand" href="#">Documentación</a>
+                                <button id="BTdocumentacionNAV" class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#documentacionNAV" role="tabpanel" aria-labelledby="DatosPersonalesNAV-tab" aria-controls="DatosPersonalesNAV" aria-expanded="false" aria-label="Toggle navigation">
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </button>
+                            </nav>
+                            <div class="collapse tab-pane fade  nav-tab pt-0 " id="documentacionNAV">
+                                <h2 class="d-none d-sm-block text-center ">Documentación</h2><br />
+                                @Html.TablaHelper(Model[3].IdTabla, "dark")
+
+                            </div>
+                        </div>
+                        <div class="pos-f-t collapse tab-pane fade  tab-nav" id="presentacion">
+                            <nav class="navbar navbar-dark bg-dark ">
+                                <a class="navbar-brand" href="#">Presentación</a>
+                                <button id="BTpresentacionNAV" class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#presentacionNAV" role="tabpanel" aria-labelledby="DatosPersonalesNAV-tab" aria-controls="DatosPersonalesNAV" aria-expanded="false" aria-label="Toggle navigation">
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </button>
+                            </nav>
+                            <div class="collapse tab-pane fade nav-tab pt-0 " id="presentacionNAV">
+                                <h2 class="d-none d-sm-block text-center ">Presentación</h2><br />
+                                @Html.TablaHelper(Model[4].IdTabla, "dark")
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+</div>
+          
+@section Scripts {
+    <script src="~/Scripts/AjaxDataTable.js"></script>
+    <script type="text/javascript">
+        //scrip que permite buscar por cualquier campo en la tabla para su uso requiere que tabla tenga la propiedad id=myTable
+        $("#TabSecundario div a").on("click", function () {
+            tab = $(this).attr("href");
+            sessionStorage.tabDelegacion = tab;
+            $(this).children('table').resize()
+        })
+
+        $(document).ready(function () {
+
+            if (sessionStorage.tabDelegacion != undefined) {
+                $(`a[href='${sessionStorage.tabDelegacion}']`).tab("show");
+            } 
+
+            var listaTablasJson = @Html.tablaToJson(Model);
+
+            //Botones
+            //funcion que devuelve el boton o botones que apareceran en la columna de opciones
+            const renderBtn = function (row) {
+                //botones
+                const boton1 = '@Html.ActionLink(" ", "Index", "Postulante", new { ID_Postulante = "IdPersona" }, new { @class = "btn btn-info far fa-list-alt", @title = "Detalles" })'
+                const boton2 = '@Html.ActionLink(" ", "EntrevistaAsignaFecha", new { id = "IdPersona" }, new { @class = "btn btn-info far fa-calendar-alt", @title = "Asignar fecha de entrevista" })'
+                const boton3 = '@Html.ActionLink(" ", "EntrevistaAsignaFecha", new { id = "IdPersona" }, new { @class = "btn btn-info far fa-calendar-alt", @title = "Reasignar fecha de entrevista" })'
+                const boton4 = '@Html.ActionLink(" ", "Postular", new { id = "IdInscripcionEtapaEstado" }, new { @class = "btn btn-info far fa-user", @title = "Validar Postulante" })'
+                const boton5 = '@Html.ActionLink(" ", "Postular", new { id = "IdInscripcionEtapaEstado" }, new { @class = "btn btn-info fa fa-reply", @title = "Retroceder a la etapa anterior" })'
+                const boton6 = '@Html.ActionLink(" ", "Documentacion", new { id = "IdPersona" }, new { @class = "btn btn-info fa fa-check-circle", @title = "Validar la documentacion del postulante" })'
+                const boton7 = '@Html.ActionLink(" ", "Details", new { id = "IdPersona" }, new { @class = "btn btn-info fa fa-reply", @style = "color:#0072ff", @title = "Restaurar postulante" })'
+                const boton8 = '@Html.ActionLink(" ", "PresentacionAsignaFecha", new { id = "IdPersona" }, new { @class = "btn btn-info far fa-calendar-alt", @title = "Asignar fecha de presentacion" })'
+                const boton9 = '@Html.ActionLink(" ", "PresentacionAsignaFecha", new { id = "IdPersona" }, new { @class = "btn btn-info far fa-calendar-alt", @title = "Reasignar fecha de presentacion" })'
+
+                let botones=''
+                //armado de botones de Opciones
+                switch (`${row.Etapa}-${row.Estado}`) {
+                    case 'ENTREVISTA-A Asignar':
+                        botones = boton2
+                        break;
+                    case 'ENTREVISTA-Pendiente':
+                        botones = boton3+boton4
+                        break;
+                    case 'ENTREVISTA-No Postulado':
+                        botones = boton5
+                        break;
+                    case 'DOCUMENTACION-A Validar':
+                        botones = boton6
+                        break;
+                    case 'DOCUMENTACION-No Validado':
+                        botones = boton7
+                        break;
+                    case 'PRESENTACION-A Asignar':
+                        botones = boton8
+                        break;
+                    case 'PRESENTACION-Asignada':
+                        botones = boton9
+                        break;
+                }
+
+                return boton1 + botones
+            }
+
+            //llamo funcion para el armado de las tablas, envio como parametros los datos de las tablas y los botones a implementar
+            armadoDataTable(listaTablasJson, renderBtn, null)
+            
+        });
+    
+    </script>
+}
+

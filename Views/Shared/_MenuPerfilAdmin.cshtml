@@ -1,0 +1,57 @@
+﻿<!--
+
+ESTE MENU Y TODOS LOS ARCHIVOS DE MENU DEBEN SER MEJORADOS/REVISADOS:
+    SE DEBE QUITAR EL STYLE Y UBICAR DONDE CORRESPONDE,
+    SE DEBE CREAR EL SUBMENU QUE AHORA ESTA CREADO CON UN BOTON TIPO COMBO DESPLEGABLE DE UNA MEJOR MANERA
+    SE DEBE RVISAR QUE CADA LINK DEL SUBMENÚ VAYA DONDE CORRESPONDA
+    CADA MENU DE CADA PERFIL SE DEBE CREAR CON LOS LINKS DEBIDOS PARA CADA PERFIL, AL MOMENTO QUE SE HIZO SE GENERARON LINKS MEDIO AL TUN TUN PARA PROBAR
+-->
+@{
+
+}
+<!--
+<h2>MenuPerfil</h2>
+-->
+<!--
+TODO EL STYLE DEBE IR EN OTRO ARCHIVO CSS
+-->
+<li class="nav-item">@Html.ActionLink("Usuarios", "Index", "Administrador", null, htmlAttributes: new { @class = "nav-link" })</li>
+<li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Matenimiento
+    </a>
+    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+        <a class="dropdown-item" href="~/Fuerzas">Fuerzas</a>
+        <a class="dropdown-item" href="~/OficinasYDelegaciones">Ofic./Deleg.</a>
+        <a class="dropdown-item" href="~/TipoNacionalidads">Nacionalidad</a>
+        <a class="dropdown-item" href="~/Sexoes">Sexo</a>
+        <a class="dropdown-item" href="~/EstablecimientoRindeExamen">Establecimientos</a>
+        <a class="dropdown-item" href="~/Delegacion_EstablecExamen">Establecimientos-Oficina/Delegación</a>
+    </div>
+
+</li>
+<li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Convocatoria
+    </a>
+    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+        <a class="dropdown-item" href="~/PeriodosConvocatorias">Convocatoria</a>
+        @*comentado a pedido de laura para que nadie acceda a este menu - jajajaja- salu2 (Alvarez Ismael)*@
+        @*<a class="dropdown-item" href="~/Modalidads">Modalidad</a>*@
+        @*Comentado debido a que el periodo de inscripcion esta relacionado a una convocatoria y su grupo de carrera oficio
+            <a class="dropdown-item" href="~/PeriodoInscripciones">Periodo de inscripciones</a>*@
+        <a class="dropdown-item" href="~/GrupoCarrOficios">Grupos de Carreras y Oficios</a>
+        <a class="dropdown-item" href="~/ResGrupoes">Restricciones por Grupo</a>
+        <a class="dropdown-item" href="~/CarreraOficios">Carreras por Oficios</a>
+    </div>
+
+</li>
+<li class="nav-item">@Html.ActionLink("Postulantes", "Index", "PostulanteEliminar", null, htmlAttributes: new { @class = "nav-link" })</li>
+
+<a class="nav-link" href="https://prezi.com/view/bNjGQOKRG4QgOzGWMY9F/" target="_blank">Ayuda</a>
+
+@*<ul class="nav navbar-nav navbar-right">
+       <li class="nav navbar-text navbar-left my-2 my-sm-0">
+          <i class="fas fa-user-secret"></i>
+       </li>
+    </ul>*@

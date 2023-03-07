@@ -1,0 +1,174 @@
+﻿@model SINU.ViewModels.DatosPersonalesVM
+@* DATOS PERSONALES *@
+@*@{
+        ViewBag.Title = "Secuencias";
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }*@
+
+@using (Ajax.BeginForm("DatosPersonales", "Postulante", null,
+    new AjaxOptions
+    {
+        HttpMethod = "POST",
+        OnSuccess = "Exito(data,status,xhr)",
+        OnFailure = "Falla",
+        LoadingElementId = "carga",
+//LoadingElementDuration = 1000,
+//UpdateTargetId = "resultTarget"
+},
+    new { id = "BeginFormDatosPersonales" }))
+{
+    @Html.AntiForgeryToken()
+    <h2 class="h2">Datos Personales</h2>
+    <br />
+    <div class="form-group">
+
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            <div class="form-group row ">
+
+
+                <div class="col-sm-6">
+
+
+                    @Html.HiddenFor(model => model.vPersona_DatosPerVM.IdPersona)
+                    @Html.HiddenFor(model => model.vPersona_DatosPerVM.Email)
+                    @Html.HiddenFor(model => model.vPersona_DatosPerVM.IdInscripcion)
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.vPersona_DatosPerVM.Apellido, htmlAttributes: new { @class = "control-label col-md-12" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.vPersona_DatosPerVM.Apellido, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.vPersona_DatosPerVM.Apellido, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.vPersona_DatosPerVM.Nombres, htmlAttributes: new { @class = "control-label col-md-12" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.vPersona_DatosPerVM.Nombres, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.vPersona_DatosPerVM.Nombres, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.vPersona_DatosPerVM.IdModalidad, new { @class = "col-md-12 control-label" })
+                        <div class="col-md-10">
+                            <select class="form-control selectpicker dropdown-fast" data-val="true" data-val-required="El campo Modalidad es obligatorio."
+                                    id="@Html.IdFor(m=>m.vPersona_DatosPerVM.IdModalidad)" name="@Html.NameFor(m=>m.vPersona_DatosPerVM.IdModalidad)" tabindex="null">
+                                <option value="">Seleccione una Opcion</option>
+                                @foreach (var item in Model.ModalidadVm)
+                                {
+                                    <option value="@item.IdModalidad" @(item.IdModalidad == Model.vPersona_DatosPerVM.IdModalidad ? "selected" : "") civil="@item.EstCivil">@item.Modalidad</option>
+
+                                }
+
+                            </select>
+
+                            @*@Html.DropDownListFor(model => model.vPersona_DatosPerVM.IdModalidad, Model.ModalidadVm, "Seleccione una Opcion", htmlAttributes: new { @class = "form-control selectpicker dropdown-fast" })*@
+                            <div class="h-100"></div>
+                            @Html.ValidationMessageFor(model => model.vPersona_DatosPerVM.IdModalidad, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.vPersona_DatosPerVM.IdCarreraOficio, new { @class = "col-md-12 control-label" })
+                        <div class="col-md-10">
+                            <select class="form-control selectpicker" data-val="true" data-val-number="El campo Carrera debe ser un número." data-val-required="El campo Carrera es obligatorio."
+                                    id="@Html.IdFor(m=>m.vPersona_DatosPerVM.IdCarreraOficio)" name="@Html.NameFor(m=>m.vPersona_DatosPerVM.IdCarreraOficio)" tabindex="null" disabled="disabled">
+                                <option value="" modali="">Seleccione una Modalidad</option>
+
+                                @foreach (var item in Model.CarreraOficioVm)
+                                {
+                                    <option value="@item.IdCarreraOficio" @(item.IdCarreraOficio == Model.vPersona_DatosPerVM.IdCarreraOficio ? "selected" : "") modali="@item.IdModalidad">@item.CarreraUoficio</option>
+
+                                }
+
+                            </select>
+                            @*@Html.DropDownListFor(model => model.vPersona_DatosPerVM.IdCarreraOficio, Model.CarreraOficioVm, "Seleccione una Opcion", htmlAttributes: new { @class = "form-control selectpicker" })*@
+                            <div class="h-100"></div>
+                            @Html.ValidationMessageFor(model => model.vPersona_DatosPerVM.IdCarreraOficio, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.vPersona_DatosPerVM.IdEstadoCivil, new { @class = "col-md-12 control-label" })
+                        <div class="col-md-10">
+
+                            @Html.DropDownListFor(model => model.vPersona_DatosPerVM.IdEstadoCivil, new SelectList(Model.vEstCivilVM, "Codigo_n", "Descripcion"), "Seleccione una Modalidad", htmlAttributes: new { @class = "form-control selectpicker", @disabled = "disabled" })
+                            <div class="h-100"></div>
+                            @Html.ValidationMessageFor(model => model.vPersona_DatosPerVM.IdEstadoCivil, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+              
+
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.vPersona_DatosPerVM.CUIL, htmlAttributes: new { @class = "control-label col-md-12" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.vPersona_DatosPerVM.CUIL, new { htmlAttributes = new { @class = "form-control", @placeholder = "Cuil sin guiones" } })
+                            @Html.ValidationMessageFor(model => model.vPersona_DatosPerVM.CUIL, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.vPersona_DatosPerVM.FechaNacimiento, htmlAttributes: new { @class = "control-label col-md-12" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(model => model.vPersona_DatosPerVM.FechaNacimiento, "{0:dd/MM/yyyy}", new { @class = "form-control datepicker fechacumpleaños" })
+
+                            @*@Html.EditorFor(model => model.vPersona_DatosPerVM.FechaNacimiento, "{0:dd/MM/yy}", new { htmlAttributes = new { @class = "form-control", @type = "text", @id = "datepicker", placeholder = "Formato: DD/MM/YYYY" } })*@
+                            @Html.ValidationMessageFor(model => model.vPersona_DatosPerVM.FechaNacimiento, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.vPersona_DatosPerVM.edad, htmlAttributes: new { @class = "control-label col-md-12" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.vPersona_DatosPerVM.edad, new { htmlAttributes = new { @class = "form-control edad", @readonly = "readonly" } })
+                            @Html.ValidationMessageFor(model => model.vPersona_DatosPerVM.edad, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.vPersona_DatosPerVM.IdReligion, new { @class = "col-md-6 control-label" })
+                        <div class="col-md-10">
+                            @*@Html.DropDownListFor(model => model.vPersona_DatosPerVM.IdReligion, new SelectList(Model.vRELIGIONVM, "CODIGO", "DESCRIPCION"), null, htmlAttributes: new { @class = "form-control combobox" })*@
+                            <select class="form-control combobox" id="@Html.IdFor(m=>m.vPersona_DatosPerVM.IdReligion)" name="@Html.NameFor(m=>m.vPersona_DatosPerVM.IdReligion)" tabindex="null">
+
+                                @foreach (var item in Model.vRELIGIONVM)
+                                {
+                                    <option value="@item.CODIGO" @(item.CODIGO == Model.vPersona_DatosPerVM.IdReligion ? "selected" : "") data-content="@item.DESCRIPCION">@item.CODIGO</option>
+
+                                }
+
+                            </select>
+
+                            @Html.ValidationMessageFor(model => model.vPersona_DatosPerVM.IdReligion, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.vPersona_DatosPerVM.idTipoNacionalidad, new { @class = "col-md-10 control-label" })
+                        <div class="col-md-10">
+                            @Html.DropDownListFor(model => model.vPersona_DatosPerVM.idTipoNacionalidad, new SelectList(Model.TipoNacionalidadVM, "idTipoNacionalidad", "Descripcion"), "Seleccione una Modalidad", htmlAttributes: new { @class = "form-control selectpicker", @disabled = "disabled" })
+                            <div class="h-100"></div>
+                            @Html.ValidationMessageFor(model => model.vPersona_DatosPerVM.idTipoNacionalidad, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                </div>
+                <br />
+            </div>
+            <div class="form-group pl-3 BTAcciones">
+                <input type="submit" value="Guadar Datos" class="btn btn-success" />
+
+            </div>
+        </div>
+    </div>
+}
+
+
+
+

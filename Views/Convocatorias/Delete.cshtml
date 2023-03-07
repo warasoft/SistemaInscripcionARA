@@ -1,0 +1,50 @@
+﻿@model SINU.Models.Convocatoria
+
+@{
+    ViewBag.Title = "Convocatorias";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Eliminar</h2>
+
+<div class="alert alert-warning" role="alert">
+    Esta a punto de eliminar un Registro.¿Está seguro?
+</div><div>
+    @*<h4>Convocatoria</h4>*@
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.GrupoCarrOficio.Descripcion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GrupoCarrOficio.Descripcion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Modalidad.Descripcion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Modalidad.Descripcion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PeriodosInscripciones.IdPeriodoInscripcion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PeriodosInscripciones.IdPeriodoInscripcion)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Eliminar" class="btn btn-default" /> |
+            @Html.ActionLink("Volver", "Index")
+        </div>
+    }
+</div>

@@ -1,0 +1,32 @@
+﻿@model SINU.Models.Fuerza
+
+<!-- xxxxxxxxxxxx Debo indicar el TITLE de la pantalla y el MENUPERFIL correspondiente en todas las pantallas xxxxxxxxxxxxxx -->
+@{
+    ViewBag.Title = "Detalle Fuerza";
+}
+@*@section MenuPerfil{
+
+    @Html.Partial("_MenuPerfilAdmin")
+}*@
+<!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx  -->
+
+<h2>Detalle Fuerza</h2>
+
+<div>
+    <h4>Fuerza</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Fuerza1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Fuerza1)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editar", "Edit", new { id = Model.IdFuerza }) |
+    @Html.ActionLink("Volver a la lista", "Index")
+</p>

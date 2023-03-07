@@ -1,0 +1,216 @@
+﻿@model SINU.Models.Convocatoria
+
+@{
+    ViewBag.Title = "Convocatorias";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+   // ViewBag.lst = new List<SINU.Models.PeriodosInscripciones>();
+}
+
+<h2>Editar</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @*<h4>Convocatoria</h4>*@
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Fecha_Inicio_Proceso)
+
+        <table>
+            <thead>
+                <tr >
+                    <th>
+                        @Html.LabelFor(model => model.IdPeriodoInscripcion, "Período de Inscripción", htmlAttributes: new { @class = "control-label col-md-2" })
+                    </th>
+                    <th>
+                        @Html.LabelFor(model => model.IdModalidad, "Modalidad", htmlAttributes: new { @class = "control-label col-md-2" })
+                    </th>
+                    <th>
+                        @Html.LabelFor(model => model.IdGrupoCarrOficio, "Grupo Carrera Oficio", htmlAttributes: new { @class = "control-label col-md-2" })
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr >
+                    <td>
+                        @*propiedad select ver que un comportamiento inesperado:
+                            cuando su propiedad ViewBag, donde esta el SelectList, si es el mismo nombre de la propiedad donde puso el valor seleccionado. Para evitar esto, simplemente usar otro nombre al nombrar la propiedad que contiene la lista de elementos*@
+                        @Html.DropDownListFor(model => model.IdPeriodoInscripcion, (SelectList)ViewBag.PeriododeInscripcion, htmlAttributes: new { @class = "form-control", @id = "ComboInscripcion" })
+                        @Html.ValidationMessageFor(model => model.IdPeriodoInscripcion, "", new { @class = "text-danger" })
+                    </td>
+                    <td>
+                        @Html.DropDownList("IdModalidad", null, "Seleccione Modalidad", htmlAttributes: new { @class = "form-control", @id = "ComboModalidad" })
+                        @Html.ValidationMessageFor(model => model.IdModalidad, "", new { @class = "text-danger" })
+                    </td>
+                    <td>
+                        @Html.DropDownList("IdGrupoCarrOficio", null, htmlAttributes: new { @class = "form-control", @id = "ComboIDgcof" })
+                        @Html.ValidationMessageFor(model => model.IdGrupoCarrOficio, "", new { @class = "text-danger" })
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        @Html.HiddenFor(model => model.IdConvocatoria)
+        <table>
+            <thead>
+                <tr>
+                    <th>
+                        @Html.LabelFor(m => m.Fecha_Fin_Proceso, htmlAttributes: new { @class = "control-label col-md-12" })
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        @Html.EditorFor(m => m.Fecha_Fin_Proceso, new { htmlAttributes = new { @class = "form-control datepicker", @id = "FechaInicio", @type = "text", placeholder = "DD/MM/YYYY", title = "Fecha de finalización del proceso de esta convocatoria" } })
+                        @Html.ValidationMessageFor(model => model.Fecha_Fin_Proceso, "", new { @class = "text-danger" })
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <p></p>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Guardar" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+<p>
+
+</p>
+<div>
+    @Html.ActionLink("Volver", "Index")
+</div>
+
+<!-- ***********************************************************************-->
+<!-- COPIAR TODO ESTE SCRIPT DE DATATABLE PARA TODAS LAS TABLAS DEL SISTEMA-->
+<!-- ***********************************************************************-->
+<!--Para establecer Formato de Tabla-->
+<!-- Establecer la tabla  <table class="table table-filters" id="le-filters">-->
+<!-- Agregar en las columnas que no deseo ordenar  <th class="no-sort"> -->
+<!-- Agregar en las columnas que no deseo ordenar ni buscar  <th class="ni-o-ni-bu"> -->
+<!-- Rodear la tr de las th con <thead> </thead>-->
+<!-- Rodear el contenido de la tabla con <tbody>-->
+@section Scripts {
+    <script type="text/javascript">
+        //scrip que permite buscar por cualquier campo en la tabla para su uso requiere que tabla tenga la propiedad id=myTable
+        $(document).ready(function () {
+            $(".table-filters").DataTable({
+                responsive: true,
+                "language":
+                {
+                    "sProcessing": "Procesando...",
+                    "sLengthMenu": "Mostrar _MENU_ registros",
+                    "sZeroRecords": "No se encontraron resultados",
+                    "sEmptyTable": "Ningún dato disponible en esta tabla",
+                    "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                    "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                    "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                    "sInfoPostFix": "",
+                    "sSearch": "Buscar:",
+                    "sUrl": "",
+                    "sInfoThousands": ",",
+                    "sLoadingRecords": "Cargando...",
+                    "oPaginate": {
+                        "sFirst": "Primero",
+                        "sLast": "Último",
+                        "sNext": "Siguiente",
+                        "sPrevious": "Anterior"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                    }
+                },
+
+                "columnDefs": [{
+                    "targets": 'no-sort',
+                    "orderable": false
+                },
+                {
+                    "targets": 'ni-o-ni-bu',
+                    "searchable": false,
+                    "orderable": false
+
+                }]
+
+            });
+        });
+
+        $(document).ready(function () {
+            //ddlRegions es igual al ID del listado de Personal.
+            $("#ComboModalidad").change(function () {
+                $("#ComboIDgcof").prop("disabled", true);
+                //alert($("#Modalidades").val());
+                // /grupoCarreraOficio /Home/GetTerritoriesList      RegionId es igual a la variable que le paso al controaldor
+
+                $.get("/Convocatorias/FiltrarModalidadIDGrupoCArreraOficio", { ModalidadId: $("#ComboModalidad").val() }, function (data) {
+                    // VACIAMOS EL DropDownList aca hay que poner
+                    //ddlterritories es ID de la lista carreras
+                    //alert("textovaconcomilla");
+                    $("#ComboIDgcof").empty();
+
+                    // AÑADIMOS UN NUEVO label CON EL NOMBRE DEL ELEMENTO SELECCIONADO
+                    $("#ComboIDgcof").append("<option value>Seleccionar IDGrupo" + "</option>")
+
+                    // CONSTRUIMOS EL DropDownList A PARTIR DEL RESULTADO Json (data)
+                    $.each(data, function (index, row) {
+
+                        $("#ComboIDgcof").prop("disabled", false);
+                        $("#ComboIDgcof").append("<option value='" + row.Value + "'>" + row.Text + "</option>")
+                    });
+                });
+            });
+        });
+       /* $(document).ready(function () {
+            //ddlRegions es igual al ID del listado de Personal.
+            $("#ComboInscripcion").change(function () {
+                //$("#FechasIniFin").show();
+                //alert($("#ddlRegions").val());
+                // /grupoCarreraOficio /Home/GetTerritoriesList      RegionId es igual a la variable que le paso al controaldor
+
+                $.get("/Convocatorias/DevolverFechas", { RegionId: $("#ComboInscripcion").val() }, function (data) {
+                    // VACIAMOS EL DropDownList aca hay que poner
+                    //ddlterritories es ID de la lista carreras
+                    //alert("textovaconcomilla");
+                    $("#FechasIniFin").empty();
+
+                    // AÑADIMOS UN NUEVO label CON EL NOMBRE DEL ELEMENTO SELECCIONADO
+                    //$("#ddlTerritories").append("<option value> -- Seleccionar Carreras Para " + $("#ddlRegions option:selected").text() + " --</option>")
+
+                    // CONSTRUIMOS EL DropDownList A PARTIR DEL RESULTADO Json (data)
+                    $.each(data, function (index, row) {
+                        alert(row.Text)
+                        $("#FechasIniFin").append("<option value='" + row.Value + "'>" + row.Text + "</option>")
+                    });
+                });
+            });
+        });
+        //activacion de las fechas
+        //$(document).ready(function () {
+        //    $("#ComboInscripcion").change(function () {
+        //        //$("#FechasIniFin").prop("disabled", false);
+        //        $("#FechasIniFin").show();
+        //    });
+        //});
+        */
+    </script>
+    <script type="text/javascript">
+        //alterala validacion de la fechas
+        //jQuery.validator.methods["date"] = function (value, element) { return true; };
+        var date = new Date();
+        date.setDate(date.getDate());
+        $('.datepicker').datepicker({
+            autoclose: true,
+            startDate: date,
+        });
+    </script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+}

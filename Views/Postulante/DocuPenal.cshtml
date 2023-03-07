@@ -1,0 +1,153 @@
+﻿@model SINU.ViewModels.DocuPenalVM
+
+
+
+<h2>Antecedentes Penales</h2>
+
+<div class="form-group">
+    <div class="jumbotron mb-0 p-3 pl-0 pr-0 pl-md-5 pr-md-5 pt-4" style="background-color: #08495f; color:white">
+        @using (Ajax.BeginForm("DocuPenal", "Postulante", null,
+new AjaxOptions
+{
+    HttpMethod = "POST",
+    OnSuccess = "Exito(data,status,xhr)",
+    OnFailure = "Falla",
+    LoadingElementId = "carga",
+//LoadingElementDuration = 1000,
+//UpdateTargetId = "resultTarget"
+},
+new { id = "BeginDocuPenal", enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(m => m.IdPersona)
+            @Html.HiddenFor(m => m.IdInscrip)
+
+            @Html.HiddenFor(m => m.PathConstanciaAntcPenales)
+            @Html.HiddenFor(m => m.PathFormularioAanexo2)
+            <div class="form-group">
+                <h5>1°- AUTORIZACIÓN PARA REQUERIR ANTECEDENTES PENALES (Judiciales y/o Policiales).</h5>
+                <p>
+                    Debera descargar el formulario e imprimirlo, rellenar con los datos que se solicitan en el mismo, firmar y aclarar.
+                    Para cargar el formulario, puede ser un archivo escaneado o una foto del mismo.
+                </p>
+                <div class="BTAcciones">
+                    @Html.ActionLink("Descargar Formulario", "GetFile", "Postulante", new { @class = "btn btn-primary ", @target = "_blank" })
+
+                </div>
+                <div class="w-100"></div>
+                <br class="BTAcciones" />
+                <div class="BTAcciones custom-file col col-md-6 mb-2">
+
+                    @Html.TextBoxFor(m => m.FormularioAanexo2, new { @type = "file", @class = "custom-file-input", @accept= "image/jpeg, application/pdf" })
+                    <label class="custom-file-label" for="exampleInputFile" style="overflow:hidden">
+                        @if (Model.PathFormularioAanexo2 != null)
+                        {
+                            <b>@Model.PathFormularioAanexo2.Substring(Model.PathFormularioAanexo2.LastIndexOf("&") + 1)</b>
+
+                        }
+                        else
+                        { <b>Seleccione archivo...</b>}
+                    </label>
+                    <div class="w-100">Tamaño maximo de archivo: 3 MB</div>
+                    @Html.ValidationMessageFor(m => m.FormularioAanexo2, "Falta Anexo 2", new { @style = "color:yellow; display:none !important",@id="reqAnexo2" })
+
+                </div>
+                <div class="col col col-md-12 p-0 ">
+                    <a href="@Url.Action("GetFile", "Postulante", new { ID_persona = Model.IdPersona.ToString(), docu = "Anexo2" })" class="btn btn-primary @(Model.PathFormularioAanexo2 == null ? "hidden" : "")" target="_blank" id="DocuAnex" @(Model.PathFormularioAanexo2 == null ? "hidden='hidden'" : "")>Ver Archivo</a>
+                </div>
+
+            </div>
+            <div class="form-group">
+                <h5>2°- “CERTIFICADO ANTECEDENTES PENALES”</h5>
+                <p>
+                    Otorgado por el Registro Nacional de Reincidencia, dependiente del Ministerio de
+                    Justicia y Derechos Humanos. (NO Constancia Policial). Tener presente que este
+                    documento tiene una validez de SEIS (6) meses y es un <b>“requisito condicionante”</b>,
+                    conforme a lo dispuesto en el Anexo A, Artículo 5 de la Ley Marco de Regulación del
+                    Empleo Público Nacional Nº 25.164.
+
+                </p>
+                <div class="BTAcciones custom-file col col-md-6 mb-2">
+
+                    @Html.TextBoxFor(m => m.ConstanciaAntcPenales, new { @type = "file", @class = "custom-file-input", @accept = "image/jpeg, application/pdf"  })
+                    @*<input type="button" name="name" value="" />*@
+                    <label class="custom-file-label" for="exampleInputFile" style="overflow:hidden">
+                        @if (Model.PathConstanciaAntcPenales != null)
+                        {
+                            <b>@Model.PathConstanciaAntcPenales.Substring(Model.PathConstanciaAntcPenales.LastIndexOf("&") + 1)</b>
+
+                        }
+                        else
+                        { <b>Seleccione archivo...</b>}
+                    </label>
+                    <div class="w-100">Tamaño maximo de archivo: 3 MB</div>
+                    @Html.ValidationMessageFor(m => m.ConstanciaAntcPenales, "Falta Certificado de Antecedentes Penal", new { @style = "color:yellow; display:none !important",@id="reqCert" })
+                </div>
+                <div class="col col col-md-12 pl-0">
+                    <a href="@Url.Action("GetFile", "Postulante", new { ID_persona = Model.IdPersona.ToString(), docu = "Certificado" })" class="btn btn-primary @(Model.PathConstanciaAntcPenales == null ? "hidden" : "")" target="_blank" id="DocuCert" @(Model.PathConstanciaAntcPenales == null ? "hidden='hidden'" : "")>Ver Archivo</a>
+
+                </div>
+                @*<br />
+                <div class=" col col-sm-12 BTAcciones pl-0 ">
+                    <input type="submit" class="btn btn-success load-submit" id="btDOCUPENAL" value="Subir Archivos" />
+                </div>*@
+            </div>
+            @*}
+
+            @using (Ajax.BeginForm("DocuPenalDeclaJurada", "Postulante", null,
+                 new AjaxOptions
+                 {
+                     HttpMethod = "POST",
+                     OnSuccess = "Exito(data,status,xhr)",
+                     OnFailure = "Falla",
+                     LoadingElementId = "carga",
+                 //LoadingElementDuration = 1000,
+                 //UpdateTargetId = "resultTarget"
+             },
+             new { id = "BeginDocuPenalDeclaJurada", enctype = "multipart/form-data" }))
+             {
+                 @Html.AntiForgeryToken()*@
+            @Html.HiddenFor(m => m.PenalDeclaJurada.IdPersona)
+            @Html.HiddenFor(m => m.PenalDeclaJurada.IdInscripcion)
+            @Html.HiddenFor(m => m.PenalDeclaJurada.IdDeclaracionJurada)
+
+            <hr style="border-top: 1px solid rgb(158 158 158)!important; width: 90%" />
+            <div class="form-group">
+                <h5>¿Posee antecedentes penales, judiciales o policiales?</h5>
+
+                @Html.DropDownListFor(model => model.PenalDeclaJurada.PoseeAntecedentes, new SelectList(new[] { new { Value = "SI", Text = "SI" }, new { Value = "NO", Text = "NO" }, }, "Value", "Text", Model),
+                "Seleccione una Opcion...", new { @class = "form-control selectpicker", @id = "comboPenal" })
+                <div class="h-100"></div>
+                @Html.ValidationMessageFor(m => m.PenalDeclaJurada.PoseeAntecedentes, null, new { @style = "color:yellow" })
+
+
+                @*@Html.DropDownList("asd", new SelectList(new[] { new { Value = "true", Text = "SI" }, new { Value = "false", Text = "NO" }, }, "Value", "Text"), "Selecione una opcion...", new { @class = "form-control selectpicker", @id = "comboPenal" })*@
+                @* @Html.DropDownListFor(model => model.vPersona_DomicilioVM.Numero, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
+                @Html.ValidationMessageFor(model => model.vPersona_DomicilioVM.Numero, "", new { @class = "text-danger" })*@
+                <br />
+                <div class="form-group" id="casosPenales">
+                    @Html.Label("Indicar cuales:", new { @class = "control-label" })
+                    @*<textarea id="autoresizing" class="form-control" name="@Html.NameFor(m=>m.PenalDeclaJurada.Antecedentes_Detalles)" placeholder="Ingrese los antecedentes que posea....."></textarea>*@
+                    @Html.TextAreaFor(m => m.PenalDeclaJurada.Antecedentes_Detalles, new { @class = "form-control", @placeholder = "Ingrese los antecedentes que posea.....", @id = "autoresizing", @maxlength = "200" })
+                    <div class="h-100"></div>
+                    @Html.ValidationMessageFor(m => m.PenalDeclaJurada.Antecedentes_Detalles, null, new { @style = "color:yellow" })
+
+
+                </div>
+                <o>Soy adicto a las bebidas alcoholicas y a otras sustancias </o>
+                <br />
+                @Html.DropDownListFor(model => model.PenalDeclaJurada.EsAdicto, new SelectList(new[] { new { Value = "SI", Text = "SI" }, new { Value = "NO", Text = "NO" }, }, "Value", "Text", Model),
+               "Seleccione una Opcion...", new { @class = "form-control selectpicker", @id = "comboPenal" })
+                <div class="h-100"></div>
+                @Html.ValidationMessageFor(m => m.PenalDeclaJurada.EsAdicto, null, new { @style = "color:yellow" })
+                <br />
+                <button type="submit" class="btn btn-success BTAcciones"> Guardar </button>
+            </div>
+        }
+
+    </div>
+    <br />
+</div>
+
+
+

@@ -1,0 +1,78 @@
+﻿@model SINU.Models.vConvocatoriaDetalles
+
+@{
+    ViewBag.Title = "Detalle Convocatoria";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Detalle</h2>
+
+<div>
+    <h4>Convocatoria</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.Label("Fecha de Inicio de Periodo de Inscripción")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FechaInicio)
+        </dd>
+
+        <dt>
+            @Html.Label("Fecha de Fin de Periodo de Inscripción")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FechaFinal)
+        </dd>
+
+        @*<dt>
+            @Html.DisplayNameFor(model => model.IdInstitucion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IdInstitucion)
+        </dd>*@
+
+    <dt>
+        @Html.Label("Periodo de Inscripción")
+    </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IdPeriodoInscripcion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IdModalidad)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Modalidad)
+        </dd>
+
+        <dt>
+            @Html.Label("Descripcion del Grupo Carrera/Oficio") 
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Desc_Grupo)
+        </dd>
+
+
+    <dt>
+        @Html.Label("Fecha de Fin de Proceso")
+    </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Fecha_Fin_Proceso)
+        </dd>
+
+    
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editar", "Edit", new { id = Model.IdConvocatoria },new { @class="btn btn-success" }) |
+    @Html.ActionLink("Volver al Listado", "Index",null, new { @class="btn btn-dark"})
+</p>

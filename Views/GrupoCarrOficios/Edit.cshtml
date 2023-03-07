@@ -1,0 +1,227 @@
+﻿@model SINU.ViewModels.GrupoCarrOficiosvm
+
+@{
+    ViewBag.Title = "Grupo Carrera/Oficio";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    List<SelectListItem> lst = new List<SelectListItem>();
+    lst.Add(new SelectListItem() { Text = "Oficiales", Value = "O" });
+    lst.Add(new SelectListItem() { Text = "Suboficiales", Value = "S" });
+    lst.Add(new SelectListItem() { Text = "Marineros", Value = "M" });
+}
+
+<h2>Editar Registro</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    @*<h4>GrupoCarrOficio</h4>*@
+    <hr />
+    <div class="form-group">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(Model => Model.IdCarreraOficio)
+        @Html.HiddenFor(Model => Model.IdGCOOriginal)
+        @Html.HiddenFor(Model => Model.SelIDsEdit)
+        @*@Html.HiddenFor(Model=>Model.SelectedIDs)*@
+        @Html.HiddenFor(model => model.Carreras, new SelectList(Model.Carreras, "IdCarreraOficio", "CarreraUoficio"))
+        @Html.HiddenFor(model => model.Carreras2, new SelectList(Model.Carreras2, "IdCarreraOficio", "CarreraUoficio"))
+        @Html.HiddenFor(model => model.Carreras3, new SelectList(Model.Carreras3, "IdCarreraOficio", "CarreraUoficio"))
+        @Html.LabelFor(model => model.IdGrupoCarrOficio, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.IdGrupoCarrOficio, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.IdGrupoCarrOficio, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Descripcion, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Descripcion, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Descripcion, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Personal, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.Personal, new SelectList(lst.ToList(), "Value", "Text", Model.Personal), new { @class = "form-control", @id = "ddlRegions" })
+            @Html.ValidationMessageFor(model => model.Personal, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <table class="col-6">
+        <thead>
+            <tr>
+                <th>
+                    @Html.LabelFor(model => model.Carreras2, htmlAttributes: new { @class = "control-label col-md-6" })
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="row">
+                <td>
+                    @Html.ListBoxFor(model => model.SelectedIDs, new MultiSelectList(Model.Carreras2, "IdCarreraOficio", "CarreraUoficio", Model.SelectedIDs), new { @class = "multiselect form-control", @multiple = "multiple", @id = "ddlTerritories" })
+                </td>
+                <td>
+                    <div class="alert alert-info">
+                        Presione la tecla "Ctrl" + click para seleccionar más de una carrera.<br />                 @Html.ValidationMessageFor(model => model.SelectedIDs, "", new { @class = "text-danger" })
+
+                    </div>
+                </td>
+               
+                    
+            </tr>
+            <tr>
+                @{ if (Model.ErrorDevuelto != null)
+                    {
+                        <td class="col-6">
+                            <div class="alert alert-danger">
+                                Error en la insercion de los datos!
+                            </div>
+                        </td>
+                    }
+                }
+            </tr>
+        </tbody>
+    </table>
+
+    <table class="table table-filters table-bordered table-light" id="le-filters" style="width:100%">
+        <thead>
+            <tr>
+
+                <th>@Html.Label("Edad Mínima (Con Autorización)")</th>
+                <th>@Html.Label("Edad Mínima")</th>
+                <th>@Html.Label("Edad Máxima")</th>
+                <th>@Html.Label("Edad a fecha")</th>
+                <th>@Html.Label("Estado Civil")</th>
+
+                <th>
+                    @Html.Label("Altura Mínima Femenina")
+                </th>
+                <th>
+                    @Html.Label("Altura Mínima Masculina")
+                </th>
+                <th>
+                    @Html.Label("IMC Máximo")
+                </th>
+                <th>
+                    @Html.Label("IMC Mínimo")
+                </th>
+                <th>@Html.Label("Seleccionar")</th>
+</thead>
+        <tbody>
+            @foreach (var item in ViewBag.lstresGrupo as List<SINU.Models.vRestriccionesGrupo>)
+            {
+            <tr>
+                <td>
+                    @item.EdadMinCAutoriz
+                </td>
+                <td>
+                    @item.EdadMin
+                </td>
+                <td>
+                    @item.EdadMax
+                </td>
+                <td>
+                    @item.Edad_a_fecha
+                </td>
+                <td>
+                    @item.EstadoCivil
+                </td>
+                <td>
+                    @item.AlturaMinF
+                </td>
+                <td>
+                    @item.AlturaMinM
+                </td>
+                <td>
+                    @item.IMC_max
+                </td>
+                <td>
+                    @item.IMC_min
+                </td>
+                <td>
+                    @if (Model.IdResGrupo == item.IdResGrupo)
+                    {
+                        @Html.RadioButtonFor(m => m.IdResGrupo, item.IdResGrupo, htmlAttributes: new { @checked = true })
+                    }
+                    else
+                    {
+                        @Html.RadioButtonFor(m => m.IdResGrupo, item.IdResGrupo)
+                    }
+                    @Html.ValidationMessageFor(m => m.IdResGrupo, "", new { @class = "text-danger" })
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+
+    <table>
+        <thead>
+            <tr>
+
+                <th>
+
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><input type="button" value="Nueva Restricción" onclick="location.href='@Url.Action("Create", "ResGrupoes", "he")'" class="btn btn-default" />
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Guardar" class="btn btn-success" />
+        </div>
+    </div>
+</div>
+}
+
+<div>
+    @Html.ActionLink("Volver", "Index")
+</div>
+@section Scripts {
+    <script>
+        //aun no me funciona el codigo 04/08/2020
+
+
+
+        $(document).ready(function () {
+            //ddlRegions es igual al ID del listado de Personal.
+            $("#ddlRegions").change(function () {
+                //alert($("#ddlRegions").val());
+                // /grupoCarreraOficio /Home/GetTerritoriesList      RegionId es igual a la variable que le paso al controaldor
+
+                $.get("/grupoCarrOficios/DevolverCArrerasFiltradas", { RegionId: $("#ddlRegions").val() }, function (data) {
+                    // VACIAMOS EL DropDownList aca hay que poner
+                    //ddlterritories es ID de la lista carreras
+                    //alert("textovaconcomilla");
+                    $("#ddlTerritories").empty();
+
+                    // AÑADIMOS UN NUEVO label CON EL NOMBRE DEL ELEMENTO SELECCIONADO
+                    //$("#ddlTerritories").append("<option value> -- Seleccionar Carreras Para " + $("#ddlRegions option:selected").text() + " --</option>")
+
+                    // CONSTRUIMOS EL DropDownList A PARTIR DEL RESULTADO Json (data)
+                    $.each(data, function (index, row) {
+                        //alert(row.Value)
+                        $("#ddlTerritories").append("<option value='" + row.Value + "'>" + row.Text + "</option>")
+                    });
+                });
+            });
+        });
+
+    </script>
+    <script type="text/javascript">
+        //i'm using jquery ready event which will call the javascript chunk after the page has completed loading
+        $(document).ready(function () {
+            //assuming that your variable name from the code behind is bInsertSuccess
+            //var bSuccess = "<%= bInsertSuccess %>";
+            if ('@Model.ErrorDevuelto' != "") {
+                alert("Successfully Inserted");
+            }
+        });
+    </script>
+}
